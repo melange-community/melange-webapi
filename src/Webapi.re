@@ -13,4 +13,5 @@ module File = {
   [@deprecated "Use `Webapi.Url` instead"] module Url = UrlRe;
 };
 
+module UrlSearchParams = URLSearchParamsRe;
 module Url = UrlRe;
