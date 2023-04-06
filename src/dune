@@ -3,4 +3,5 @@
 (library
  (name webapi)
  (wrapped false)
- (modes melange))
+ (modes melange)
+ (preprocess (pps melange.ppx)))
