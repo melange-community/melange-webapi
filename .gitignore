@@ -1,9 +1,10 @@
 .DS_Store
 .merlin
 .bsb.lock
+docs/
 node_modules/
 lib/*
-!lib/js
+!lib/js/tests
 lib/js/tests/testHelpers.js
 npm-debug.log
 _opam

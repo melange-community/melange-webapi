@@ -49,13 +49,13 @@ let el =
 
 /*
 document |> Document.asHtmlDocument
-         |> and_then HtmlDocument.body
+         |> andThen(HtmlDocument.body)
          |> map(Element.appendChild(el));
 */
 
 /* Before subtyping:
 document |> Document.asHtmlDocument
-         |> and_then(HtmlDocument.body)
+         |> andThen(HtmlDocument.body)
          |> map(Element.appendChild (el |> HtmlElement.asNode));
 */
 

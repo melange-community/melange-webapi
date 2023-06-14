@@ -1,10 +1,15 @@
 # melange-webapi
 
+**IMPORTANT: this repository is deprecated in favour of** https://github.com/tinymce/rescript-webapi/
+
+Please use ReScript-WebAPI going forward.
+
 Experimental bindings to the DOM and other Web APIs.
 
 The bindings are currently undocumented, but as the code mostly just consists of external declarations with type signatures, the code itself is fairly self-documenting. The bindings generally also correspond very well to the Web APIs they bind to, so using MDN along with GitHub should go a long way.
 
 ## Installation
+
 ```
 opam pin add melange-webapi.dev -y git+https://github.com/melange-community/melange-webapi.git#master
 ```
@@ -16,6 +21,8 @@ Then add `melange-webapi` to the `libraries` field in your `dune` file:
 ## Usage
 
 See the [examples folder](https://github.com/melange-community/melange-webapi/blob/master/examples/)
+
+Please only use the modules exposed through the toplevel module `Webapi`, for example `Webapi.Dom.Element`. In particular, don't use the 'flat' modules like `Webapi__Dom__Element` as these are considered private and are not guaranteed to be backwards-compatible.
 
 ## Some notes on the DOM API
 
@@ -43,95 +50,19 @@ This system works exceptionally well, but has one significant flaw: It makes typ
 If you've looked through the source code a bit, you've likely come across code like this:
 
 ```reason
-include EventTargetRe.Impl({ type nonrec t = t });
-include NodeRe.Impl({ type nonrec t = t });
-include ParentNodeRe.Impl({ type nonrec t = t });
-include NonDocumentTypeChildNodeRe.Impl({ type nonrec t = t });
-include ChildNodeRe.Impl({ type nonrec t = t });
-include SlotableRe.Impl({ type nonrec t = t });
+include Webapi__Dom__EventTarget.Impl({ type nonrec t = t });
+include Webapi__Dom__Node.Impl({ type nonrec t = t });
+include Webapi__Dom__ParentNode.Impl({ type nonrec t = t });
+include Webapi__Dom__NonDocumentTypeChildNode.Impl({ type nonrec t = t });
+include Webapi__Dom__ChildNode.Impl({ type nonrec t = t });
+include Webapi__Dom__Slotable.Impl({ type nonrec t = t });
 include Impl({ type nonrec t = t });
 ```
 
-This is the implementation inheritance. Each "inheritable" module defines an "Impl" module where all its exported functions are defined. `include NodeRe.Impl { type nonrec t = t };` means that all the functions in `NodeRe.Impl` should be included in this module, but with the `t` type of that module replaced by the `t` type of this one. And that's it, it now has all the functions.
+This is the implementation inheritance. Each "inheritable" module defines an "Impl" module where all its exported functions are defined. `include Webapi__Dom__Node.Impl { type nonrec t = t };` means that all the functions in `Webapi__Dom__Node.Impl` should be included in this module, but with the `t` type of that module replaced by the `t` type of this one. And that's it, it now has all the functions.
 
 Implementation inheritance is used instead of subtyping to make it easier to understand which functions operate on any given "subject". If you have an `element` and you need to use a function defined in `Node`, let's say `removeChild` you cannot just use `Node.removeChild`. Instead you need to use `Element.removeChild`, which you can since `Element` inherits from `Node`. As a general rule, always use the function in the module corresponding to the type you have. You'll find this makes it very easy to see what types you're dealing with just by reading the code.
 
 ## Changes
 
-### Unreleased
-
-* Migrate to Melange
-
-### 0.13.6
-* Added `HtmlElement.focusPreventScroll`
-* Refined return type of `Node.cloneNode` and `Node.cloneDeepNode` so it now returns the specific type of the cloned node.
-
-### 0.13.5
-* Added `Element.scrollTo`, `Element.scrollToWithOptions`
-
-### 0.13.4
-* Added `URLSearchParams.makeWithDict` and `URLSearchParams.makeWithArray`
-
-### 0.13.3
-* Added `bs.return nullable` to `URLSearchParams.get` since it returns `null`, not `undefined` and therefore does not autmatically conform to the runtime representation of `option` as previosuly assumed.
-
-### 0.13.2
-* Fixed signature of `NamedNodeMap.toArray`, which returned `element` but should return `attr` (considere non-breaking since it was just plain wrong)
-* Added `add...` and `removePopStateEventListener` to `Window`
-* Added `add...` and `remove...` functions for touch and animation event listeners to `EventTarget`
-
-### 0.13.1
-* Added `add...` and `remove...` functions for drag event listeners to `EventTarget`
-
-### 0.13.0
-* (Breaking) Requires bs-platform > 4.0.0
-* (Breaking) Changed `FocusEvent.relatedTarget` to return `option`
-* Added `HtmlFormElement` and `HtmlInputElement`
-
-### 0.12.0
-* (Breaking) Fixed return type if `StorageEvent.oldValue` and `StorageEvent.newValue`. They should be `nullable`, but were not.
-* Added `Url` and `UrlSearchParams`
-* Deprecated `Webapi.File.Url` in favor of `Webapi.Url`
-
-### 0.11.0
-* `EventTarget.dispatchEvent` now take a `Dom.event_like(_)` instead of just `Dom.event`, so it will accept any event subtype.
-* `Window.pageXOffset`, `pageYOffset`, `scrollX`, `scrollY`, `scrollLeft` and `scrollTop` now return `float`s instead of `int`s, and `Window.scroll`, `scrollBy`, `scrollTo`, `setScrollLeft` and `setScrollTop` take `float`s instead of `int`s
-* `HtmlElement.offsetParent` now returns an `option`
-* `Selection.anchorNode` and `Selection.focusNode` now return `option`s
-* `Element.closest` now returns an `option`
-
-### 0.10.0
-* Added inheritance of `HtmlElement` and its ancestors to `HtmlImageElement`
-* Deprecated `HtmlImageElement.onload`
-* Fixed inconsistencies with `HtmlImageElement.src` and `HtmlImageElement.getSrc`, breaking the API
-* Fleshed out `HtmlImageElement`
-
-### 0.9.1
-* Renamed `Document.docType` to `Document.doctype` to fix #95
-
-### 0.9.0
-* Support `bs-platform@3.0.0`. If your app isn't using that version, then don't upgrade to `0.9.0`; otherwise, please do!
-
-### 0.8.0
-* Added `EventTarget.unsafeAsDocument`, `EventTarget.unsafeAsElement` and `EventTarget.unsafeAsWindow` functions
-* Removed deprecated `Bs_webapi` module`
-* Added event-specific listener APIs to `EventTarget`, e.g. `EventTarget.addMouseMoveListener(mouseEvent => ...)`
-* Added `requestCancellableAnimationFrame` and `cancelAnimationFrame`
-* Fixed msising `@bs.return` annotations causing type unsoundness
-* Fixed typo in encoding of `insertPosition` type
-* Added `Dom.HtmlImageElement`, `File` and `File.Url`
-* Fixed `HtmlElement.offsetParent` returning `int` instead of `Dom.Element`
-
-### 0.7.0
-* Added `Webapi` module, Deprecated `Bs_webapi`
-* Removed deprecated Storage API
-* Add `Document.unsafeAshtmlDocument`, `Element.unsafeAsHtmlElement`. Deprecated `Document.asHtmlDocument`, `Element.asHtmlElement`, `HtmlEleement.ofElement`.
-* Changed `Dom.history` and `Dom.location` to use `window` instead of `document`
-
-### 0.6.1
-* Fix incorrect heuristic in `HtmlElement.ofElement`
-
-### 0.6.0
-* Renamed createText to CreateTextNode, according to spec
-* Deprecated Storage API, it's been upstreamed to `bs-platform` as `Dom.Storage`
-* Removed `ReasonJs`  namespace. Use ` Bs_webapi`  instead
+See [CHANGELOG.md](CHANGELOG.md).
