@@ -6,4 +6,4 @@ include UiEventRe.Impl({ type nonrec t = t; });
 [@bs.new] external make : string => t = "CompositionEvent";
 [@bs.new] external makeWithOptions : (string, Js.t({..})) => t = "CompositionEvent";
 
-[@bs.get] external data : t => string = "";
+[@bs.get] external data : t => string = "data";
