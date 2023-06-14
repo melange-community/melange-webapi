@@ -9,3 +9,4 @@ lib/js/tests/testHelpers.js
 npm-debug.log
 _opam
 _build
+.vscode/

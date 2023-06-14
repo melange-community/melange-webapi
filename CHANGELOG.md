@@ -1,7 +1,6 @@
 ### Unreleased
 
 * Migrate to Melange
-* Rename modules back so `__` is not part of the module name
 * Remove bsdoc
 
 ### 0.19.2
