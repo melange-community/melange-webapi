@@ -1,30 +1,21 @@
-# bs-webapi
+# melange-webapi
 
 Experimental bindings to the DOM and other Web APIs.
-
-[![npm](https://img.shields.io/npm/v/bs-webapi.svg)](https://npmjs.org/bs-webapi)
-[![Travis](https://img.shields.io/travis/reasonml-community/bs-webapi-incubator/master.svg)](https://travis-ci.org/reasonml-community/bs-webapi-incubator)
-[![Issues](https://img.shields.io/github/issues/reasonml-community/bs-webapi-incubator.svg)](https://github.com/reasonml-community/bs-webapi-incubator/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/reasonml-community/bs-webapi-incubator.svg)](https://github.com/reasonml-community/bs-webapi-incubator/commits/master)
 
 The bindings are currently undocumented, but as the code mostly just consists of external declarations with type signatures, the code itself is fairly self-documenting. The bindings generally also correspond very well to the Web APIs they bind to, so using MDN along with GitHub should go a long way.
 
 ## Installation
 ```
-npm install bs-webapi
+opam pin add melange-webapi.dev -y git+https://github.com/melange-community/melange-webapi.git#master
 ```
-Then add `bs-webapi` to `bs-dependencies` in your `bsconfig.json`. A minimal example:
+Then add `melange-webapi` to the `libraries` field in your `dune` file:
 ```
-{
-  "name": "my-thing",
-  "sources": "src",
-  "bs-dependencies": ["bs-webapi"]
-}
+  (libraries melange-webapi)
 ```
 
 ## Usage
 
-See the [examples folder](https://github.com/reasonml-community/bs-webapi-incubator/blob/master/examples/)
+See the [examples folder](https://github.com/melange-community/melange-webapi/blob/master/examples/)
 
 ## Some notes on the DOM API
 
@@ -32,7 +23,7 @@ The DOM API is mostly organized into interfaces and relies heavily on inheritanc
 
 ### Subtyping
 
-The Dom types, and the relationships between them, are actually defined in the `Dom` module that ships with `bs-platform` ([Source code](https://github.com/glennsl/bucklescript/blob/master/jscomp/others/dom.mli)), where you'll find a bunch of types that look like this:
+The Dom types, and the relationships between them, are actually defined in the `Dom` module that ships with Melange  ([Source code](https://github.com/melange-re/melange/blob/f954fd34e67106fc71ab64cf2bd309ace9b4d3db/jscomp/others/dom.ml)), where you'll find a bunch of types that look like this:
 
 ```reason
 type _element('a);
@@ -66,6 +57,10 @@ This is the implementation inheritance. Each "inheritable" module defines an "Im
 Implementation inheritance is used instead of subtyping to make it easier to understand which functions operate on any given "subject". If you have an `element` and you need to use a function defined in `Node`, let's say `removeChild` you cannot just use `Node.removeChild`. Instead you need to use `Element.removeChild`, which you can since `Element` inherits from `Node`. As a general rule, always use the function in the module corresponding to the type you have. You'll find this makes it very easy to see what types you're dealing with just by reading the code.
 
 ## Changes
+
+### Unreleased
+
+* Migrate to Melange
 
 ### 0.13.6
 * Added `HtmlElement.focusPreventScroll`
