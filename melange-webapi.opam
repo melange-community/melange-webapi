@@ -2,6 +2,10 @@
 opam-version: "2.0"
 synopsis: "Melange bindings to the DOM"
 description: "Melange bindings to the DOM and other Web APIs."
+maintainer: [
+  "Javier Chávarri <javier.chavarri@gmail.com>"
+  "David Sancho <dsnxmoreno@gmail.com>"
+]
 authors: [
   "chenglou"
 ]
@@ -13,6 +17,7 @@ depends: [
   "dune" {>= "3.8"}
   "ocaml" {>= "4.14.0"}
   "melange" {dev}
+  "melange-fetch" {dev}
   "reason" {>= "3.8.2"}
   "ocaml-lsp-server" {with-test}
   "odoc" {with-doc}
@@ -32,3 +37,6 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/melange-community/melange-webapi.git"
+pin-depends: [
+  [ "melange-fetch.dev" "git+https://github.com/melange-community/melange-fetch.git#d2183ec245cbf5c7a8f99f8c41d2de0758c8cda7" ]
+]

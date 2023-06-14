@@ -6,12 +6,12 @@ module Impl = (T: {type t;}) => {
   [@bs.get] [@bs.return nullable] external firstChild : T.t => option(Dom.node) = "firstChild";
   [@bs.get] external innerText : T.t => string = "innerText";
   [@bs.set] external setInnerText : (T.t, string) => unit = "innerText";
-  [@bs.get] [@bs.return nullable] external lastChild : T.t => option(Dom.node) = "";
-  [@bs.get] [@bs.return nullable] external nextSibling : T.t => option(Dom.node) = "";
-  [@bs.get] external nodeName : T.t => string = ""; /* nodePrincipal */
-  [@bs.get] external nodeType : T.t => int /* nodeType enum */ = "";
+  [@bs.get] [@bs.return nullable] external lastChild : T.t => option(Dom.node) = "lastChild";
+  [@bs.get] [@bs.return nullable] external nextSibling : T.t => option(Dom.node) = "nextSibling";
+  [@bs.get] external nodeName : T.t => string = "nodeName"; /* nodePrincipal */
+  [@bs.get] external nodeType : T.t => int /* nodeType enum */ = "nodeType";
   let nodeType: T.t => Webapi__Dom__Types.nodeType = (self) => Webapi__Dom__Types.decodeNodeType(nodeType(self));
-  [@bs.get] [@bs.return nullable] external nodeValue : T.t => option(string) = "";
+  [@bs.get] [@bs.return nullable] external nodeValue : T.t => option(string) = "nodeValue";
   [@bs.set] external setNodeValue : (T.t, Js.null(string)) => unit = "nodeValue";
   /* let setNodeValue : T.t => option string => unit = fun self value => setNodeValue self (Js.Null.fromOption value); */ /* temporarily removed to reduce codegen size */
   /* Not supported yet
@@ -46,11 +46,11 @@ module Impl = (T: {type t;}) => {
   [@bs.send.pipe : T.t] [@bs.return nullable] external lookupNamespaceURI : string => option(string) = "lookupNamespaceURI";
   [@bs.send.pipe : T.t] [@bs.return nullable] external lookupDefaultNamespaceURI : ([@bs.as {json|null|json}] _) => option(string) = "lookupNamespaceURI";
   [@bs.send.pipe : T.t] external lookupPrefix : string = "lookupPrefix";
-  [@bs.send.pipe : T.t] external normalize : unit = "";
-  [@bs.send.pipe : T.t] external removeChild : Dom.node_like('a) => Dom.node_like('a) = "";
+  [@bs.send.pipe : T.t] external normalize : unit = "normalize";
+  [@bs.send.pipe : T.t] external removeChild : Dom.node_like('a) => Dom.node_like('a) = "removeChild";
 
   /** @since 0.19.0 */
-  [@bs.send.pipe : T.t] external replaceChild : (Dom.node_like('a), Dom.node_like('b)) => Dom.node_like('b) = "";
+  [@bs.send.pipe : T.t] external replaceChild : (Dom.node_like('a), Dom.node_like('b)) => Dom.node_like('b) = "replaceChild";
 };
 
 type t = Dom.node;

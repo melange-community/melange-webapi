@@ -27,10 +27,10 @@ module Impl = (T: {type t;}) => {
   [@bs.get] external encoding : t_htmlFormElement => string = "encoding";
   [@bs.set] external setEncoding : (t_htmlFormElement, string) => unit = "encoding";
 
-  [@bs.send.pipe: t_htmlFormElement] external submit : unit = "";
-  [@bs.send.pipe: t_htmlFormElement] external reset : unit = "";
-  [@bs.send.pipe: t_htmlFormElement] external checkValidity : bool = "";
-  [@bs.send.pipe: t_htmlFormElement] external reportValidity : bool = "";
+  [@bs.send.pipe: t_htmlFormElement] external submit : unit = "submit";
+  [@bs.send.pipe: t_htmlFormElement] external reset : unit = "reset";
+  [@bs.send.pipe: t_htmlFormElement] external checkValidity : bool = "checkValidity";
+  [@bs.send.pipe: t_htmlFormElement] external reportValidity : bool = "reportValidity";
 
   /** @since 0.18.0 */
   [@bs.new] external data: T.t => Fetch.FormData.t = "FormData";

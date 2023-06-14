@@ -22,7 +22,7 @@ init: create-switch install ## Configure everything to develop this repository i
 install: ## Install development dependencies
 	opam update
 	opam install -y . --deps-only
-	opam pin -y add $(project_name).dev .
+	opam pin -y add $(project_name).dev . --working-dir
 
 .PHONY: build
 build: ## Build the project

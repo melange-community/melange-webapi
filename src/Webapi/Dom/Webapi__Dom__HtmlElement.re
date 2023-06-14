@@ -5,23 +5,23 @@ module Impl = (T: {type t;}) => {
 
   [@bs.get] external accessKey : t_htmlElement => string = "accessKey";
   [@bs.set] external setAccessKey : (t_htmlElement, string) => unit = "accessKey";
-  [@bs.get] external accessKeyLabel : t_htmlElement => string = "";
-  [@bs.get] external contentEditable : t_htmlElement => string /* enum */ = "";
+  [@bs.get] external accessKeyLabel : t_htmlElement => string = "accessKeyLabel";
+  [@bs.get] external contentEditable : t_htmlElement => string /* enum */ = "contentEditable";
   let contentEditable: t_htmlElement => Webapi__Dom__Types.contentEditable =
     (self) => Webapi__Dom__Types.decodeContentEditable(contentEditable(self));
   [@bs.set] external setContentEditable : (t_htmlElement, string /* enum */) => unit = "contentEditable";
   let setContentEditable: (t_htmlElement, Webapi__Dom__Types.contentEditable) => unit =
     (self, value) => setContentEditable(self, Webapi__Dom__Types.encodeContentEditable(value));
-  [@bs.get] external isContentEditable : t_htmlElement => bool = "";
-  [@bs.get] external contextMenu : t_htmlElement => Dom.htmlElement = ""; /* returns HTMLMenuElement */
+  [@bs.get] external isContentEditable : t_htmlElement => bool = "isContentEditable";
+  [@bs.get] external contextMenu : t_htmlElement => Dom.htmlElement = "contextMenu"; /* returns HTMLMenuElement */
   [@bs.set] external setContextMenu : (t_htmlElement, Dom.htmlElement) => unit = "contextMenu"; /* accepts and returns HTMLMenuElement */
-  [@bs.get] external dataset : t_htmlElement => Dom.domStringMap = "";
-  [@bs.get] external dir : t_htmlElement => string /* enum */ = "";
+  [@bs.get] external dataset : t_htmlElement => Dom.domStringMap = "dataset";
+  [@bs.get] external dir : t_htmlElement => string /* enum */ = "dir";
   let dir: t_htmlElement => Webapi__Dom__Types.dir = (self) => Webapi__Dom__Types.decodeDir(dir(self));
   [@bs.set] external setDir : (t_htmlElement, string /* enum */) => unit = "dir";
   let setDir: (t_htmlElement, Webapi__Dom__Types.dir) => unit =
     (self, value) => setDir(self, Webapi__Dom__Types.encodeDir(value));
-  [@bs.get] external draggable : t_htmlElement => bool = "";
+  [@bs.get] external draggable : t_htmlElement => bool = "draggable";
   [@bs.set] external setDraggable : (t_htmlElement, bool) => unit = "draggable";
   /*let setDraggable : t_htmlElement => bool => unit = fun self value => setDraggable self (Js.Boolean.to_js_boolean value);*/ /* temproarily removed to reduce codegen size */
   [@bs.get] external dropzone : t_htmlElement => Dom.domSettableTokenList = "dropzone";
@@ -67,8 +67,8 @@ module Impl = (T: {type t;}) => {
 
 
   /* TODO: element-spcific, should be pulled out */
-  [@bs.get] external value : t_htmlElement => string = ""; /* HTMLInputElement */
-  [@bs.get] external checked : t_htmlElement => bool = ""; /* HTMLInputElement */
+  [@bs.get] external value : t_htmlElement => string = "value"; /* HTMLInputElement */
+  [@bs.get] external checked : t_htmlElement => bool = "checked"; /* HTMLInputElement */
   [@bs.get] external type_ : t_htmlElement => string = "type"; /* HTMLStyleElement */
   [@bs.set] external setType : (t_htmlElement, string) => unit = "type"; /* HTMLStyleElement */
   [@bs.get] external rel : t_htmlElement => string = "rel"; /* HTMLLinkElement */

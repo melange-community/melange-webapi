@@ -1,10 +1,10 @@
 type t = Dom.treeWalker;
 
-[@bs.get] external root : t => Dom.node = "";
-[@bs.get] external whatToShow : t => Webapi__Dom__Types.WhatToShow.t = "";
-[@bs.get] [@bs.return nullable] external filter : t => option(Dom.nodeFilter) = "";
-[@bs.get] external currentNode : t => Dom.node = "";
-[@bs.set] external setCurrentNode : (t, Dom.node) => unit = "";
+[@bs.get] external root : t => Dom.node = "root";
+[@bs.get] external whatToShow : t => Webapi__Dom__Types.WhatToShow.t = "whatToShow";
+[@bs.get] [@bs.return nullable] external filter : t => option(Dom.nodeFilter) = "filter";
+[@bs.get] external currentNode : t => Dom.node = "currentNode";
+[@bs.set] external setCurrentNode : (t, Dom.node) => unit = "setCurrentNode";
 
 [@bs.send.pipe : t] [@bs.return nullable] external parentNode : option(Dom.node) = "parentNode";
 [@bs.send.pipe : t] [@bs.return nullable] external firstChild : option(Dom.node) = "firstChild";

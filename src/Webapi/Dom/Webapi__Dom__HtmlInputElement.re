@@ -31,9 +31,9 @@ module Impl = (T: {type t;}) => {
   [@bs.set] external setRequired : (t_htmlInputElement, bool) => unit = "required";
   [@bs.get] external value : t_htmlInputElement => string = "value";
   [@bs.set] external setValue : (t_htmlInputElement, string) => unit = "value";
-  [@bs.get] external validity : t_htmlInputElement => Webapi__Dom__ValidityState.t = "";
-  [@bs.get] external validationMessage : t_htmlInputElement => string = "";
-  [@bs.get] external willValidate : t_htmlInputElement => bool = "";
+  [@bs.get] external validity : t_htmlInputElement => Webapi__Dom__ValidityState.t = "validity";
+  [@bs.get] external validationMessage : t_htmlInputElement => string = "validationMessage";
+  [@bs.get] external willValidate : t_htmlInputElement => bool = "willValidate";
 
   /* Properties that apply only to elements of type "checkbox" or "radio" */
   [@bs.get] external checked : t_htmlInputElement => bool = "checked";

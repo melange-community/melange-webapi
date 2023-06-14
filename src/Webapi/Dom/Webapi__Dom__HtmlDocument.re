@@ -6,19 +6,19 @@ module Impl = (T: {type t;}) => {
   [@bs.set] external setBody : (t_htmlDocument, Dom.element) => unit = "body"; /* accepth HTMLBodyElement */
   [@bs.get] external cookie : t_htmlDocument => string = "cookie";
   [@bs.set] external setCookie : (t_htmlDocument, string) => unit = "cookie";
-  [@bs.get] [@bs.return nullable] external defaultView : t_htmlDocument => option(Dom.window) = "";
-  [@bs.get] external designMode : t_htmlDocument => string /* designMode enum */ = "";
+  [@bs.get] [@bs.return nullable] external defaultView : t_htmlDocument => option(Dom.window) = "defaultView";
+  [@bs.get] external designMode : t_htmlDocument => string /* designMode enum */ = "designMode";
   let designMode: t_htmlDocument => Webapi__Dom__Types.designMode =
     (self) => Webapi__Dom__Types.decodeDesignMode(designMode(self));
   [@bs.set] external setDesignMode : (t_htmlDocument, string /* designMode enum */) => unit = "designMode";
   let setDesignMode: (t_htmlDocument, Webapi__Dom__Types.designMode) => unit =
     (self, value) => setDesignMode(self, Webapi__Dom__Types.encodeDesignMode(value));
-  [@bs.get] external dir : t_htmlDocument => string /* dir enum */ = "";
+  [@bs.get] external dir : t_htmlDocument => string /* dir enum */ = "dir";
   let dir: t_htmlDocument => Webapi__Dom__Types.dir = (self) => Webapi__Dom__Types.decodeDir(dir(self));
   [@bs.set] external setDir : (t_htmlDocument, string /* dir enum */) => unit = "dir";
   let setDir: (t_htmlDocument, Webapi__Dom__Types.dir) => unit =
     (self, value) => setDir(self, Webapi__Dom__Types.encodeDir(value));
-  [@bs.get] [@bs.return nullable] external domain : t_htmlDocument => option(string) = "";
+  [@bs.get] [@bs.return nullable] external domain : t_htmlDocument => option(string) = "domain";
   [@bs.set] external setDomain : (t_htmlDocument, string) => unit = "domain";
   [@bs.get] external embeds : t_htmlDocument => Dom.nodeList = "embeds";
   [@bs.get] external forms : t_htmlDocument => Dom.htmlCollection = "forms";
@@ -28,13 +28,13 @@ module Impl = (T: {type t;}) => {
   [@bs.get] external links : t_htmlDocument => Dom.nodeList = "links";
   [@bs.get] external location : t_htmlDocument => Dom.location = "location";
   [@bs.set] external setLocation : (t_htmlDocument, string) => unit = "location";
-  [@bs.get] external plugins : t_htmlDocument => Dom.htmlCollection = "";
-  [@bs.get] external readyState : t_htmlDocument => string /* enum */ = "";
+  [@bs.get] external plugins : t_htmlDocument => Dom.htmlCollection = "plugins";
+  [@bs.get] external readyState : t_htmlDocument => string /* enum */ = "readyState";
   let readyState: t_htmlDocument => Webapi__Dom__Types.readyState =
     (self) => Webapi__Dom__Types.decodeReadyState(readyState(self));
-  [@bs.get] external referrer : t_htmlDocument => string = "";
-  [@bs.get] external scripts : t_htmlDocument => Dom.htmlCollection = "";
-  [@bs.get] external title : t_htmlDocument => string = "";
+  [@bs.get] external referrer : t_htmlDocument => string = "referrer";
+  [@bs.get] external scripts : t_htmlDocument => Dom.htmlCollection = "scripts";
+  [@bs.get] external title : t_htmlDocument => string = "title";
   [@bs.set] external setTitle : (t_htmlDocument, string) => unit = "title";
   [@bs.get] external url : t_htmlDocument => string = "URL";
 

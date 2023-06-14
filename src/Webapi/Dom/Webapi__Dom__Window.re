@@ -39,22 +39,22 @@ module Impl = (T: {type t;}) => {
   [@bs.get] external menubar : t_window => menubar = "menubar";
   [@bs.get] external name : t_window => string = "name";
   [@bs.set] external setName : (t_window, string) => unit = "name";
-  [@bs.get] external navigator : t_window => navigator = "";
-  [@bs.get] [@bs.return nullable] external opener : t_window => option(Dom.window) = "";
-  [@bs.get] external outerWidth : t_window => int = "";
-  [@bs.get] external outerHeight : t_window => int = "";
-  [@bs.get] external pageXOffset : t_window => float = ""; /* alias for scrollX */
-  [@bs.get] external pageYOffset : t_window => float = ""; /* alias for scrollY */
-  [@bs.get] external parent : t_window => Dom.window = "";
-  [@bs.get] external performance : t_window => Webapi__Performance.t = "";
-  [@bs.get] external personalbar : t_window => personalbar = "";
-  [@bs.get] external screen : t_window => screen = "";
-  [@bs.get] external screenX : t_window => int = "";
-  [@bs.get] external screenY : t_window => int = "";
-  [@bs.get] external scrollbars : t_window => scrollbars = "";
-  [@bs.get] external scrollX : t_window => float = "";
-  [@bs.get] external scrollY : t_window => float = "";
-  [@bs.get] external self : t_window => Dom.window = ""; /* alias for window, but apparently convenient because self (stand-alone) resolves to WorkerGlobalScope in a web worker. Probably poitnless here though */
+  [@bs.get] external navigator : t_window => navigator = "navigator";
+  [@bs.get] [@bs.return nullable] external opener : t_window => option(Dom.window) = "opener";
+  [@bs.get] external outerWidth : t_window => int = "outerWidth";
+  [@bs.get] external outerHeight : t_window => int = "outerHeight";
+  [@bs.get] external pageXOffset : t_window => float = "pageXOffset"; /* alias for scrollX */
+  [@bs.get] external pageYOffset : t_window => float = "pageYOffset"; /* alias for scrollY */
+  [@bs.get] external parent : t_window => Dom.window = "parent";
+  [@bs.get] external performance : t_window => Webapi__Performance.t = "performance";
+  [@bs.get] external personalbar : t_window => personalbar = "personalbar";
+  [@bs.get] external screen : t_window => screen = "screen";
+  [@bs.get] external screenX : t_window => int = "screenX";
+  [@bs.get] external screenY : t_window => int = "screenY";
+  [@bs.get] external scrollbars : t_window => scrollbars = "scrollbars";
+  [@bs.get] external scrollX : t_window => float = "scrollX";
+  [@bs.get] external scrollY : t_window => float = "scrollY";
+  [@bs.get] external self : t_window => Dom.window = "self"; /* alias for window, but apparently convenient because self (stand-alone) resolves to WorkerGlobalScope in a web worker. Probably poitnless here though */
   /* sessionStorage: accessed directly via Dom.Storage.sessionStorage */
   [@bs.get] external speechSynthesis : t_window => speechSynthesis = "speechSynthesis"; /* experimental */
   [@bs.get] external status : t_window => string = "status";
@@ -72,12 +72,12 @@ module Impl = (T: {type t;}) => {
   [@bs.send.pipe : t_window] external focus : unit = "focus";
   [@bs.send.pipe : t_window] external getComputedStyle : Dom.element => Dom.cssStyleDeclaration = "getComputedStyle";
   [@bs.send.pipe : t_window] external getComputedStyleWithPseudoElement : (Dom.element, string) => Dom.cssStyleDeclaration = "getComputedStyle";
-  [@bs.send.pipe : t_window] external getSelection : Dom.selection = "";
-  [@bs.send.pipe : t_window] external matchMedia : string => mediaQueryList = ""; /* experimental, CSSOM View module */
-  [@bs.send.pipe : t_window] external moveBy : (int, int) => unit = ""; /* experimental, CSSOM View module */
-  [@bs.send.pipe : t_window] external moveTo : (int, int) => unit = ""; /* experimental, CSSOM View module */
+  [@bs.send.pipe : t_window] external getSelection : Dom.selection = "getSelection";
+  [@bs.send.pipe : t_window] external matchMedia : string => mediaQueryList = "matchMedia"; /* experimental, CSSOM View module */
+  [@bs.send.pipe : t_window] external moveBy : (int, int) => unit = "moveBy"; /* experimental, CSSOM View module */
+  [@bs.send.pipe : t_window] external moveTo : (int, int) => unit = "moveTo"; /* experimental, CSSOM View module */
   [@bs.send.pipe : t_window] [@bs.return nullable] external open_ : (~url: string, ~name: string, ~features: string=?) => option(Dom.window) = "open"; /* yes, features is a stringly typed list of key value pairs, sigh */
-  [@bs.send.pipe : t_window] external postMessage : ('a, string) => unit = ""; /* experimental-ish?, Web Messaging */
+  [@bs.send.pipe : t_window] external postMessage : ('a, string) => unit = "postMessage"; /* experimental-ish?, Web Messaging */
   [@bs.send.pipe : t_window] external postMessageWithTransfers : ('a, string, array(transferable)) => unit = "postMessage"; /* experimental-ish?, Web Messaging */
   [@bs.send.pipe : t_window] external print : unit = "print";
   [@bs.send.pipe : t_window] external prompt : string => string = "prompt";
