@@ -7,3 +7,5 @@ lib/*
 !lib/js/tests
 lib/js/tests/testHelpers.js
 npm-debug.log
+_build
+_opam
