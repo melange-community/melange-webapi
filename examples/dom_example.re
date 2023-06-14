@@ -20,10 +20,12 @@ let unwrapUnsafely =
 /*
  * These SHOULD type check
  */
-document |> Document.createElement("div")
+let _className: string =
+  document |> Document.createElement("div")
          |> Element.className;
 
-document |> Document.createElement("div")
+let _inner: option(string) =
+  document |> Document.createElement("div")
          |> Element.nextElementSibling
          |> map(Element.innerText); /* innerText is a function that accepts a Node */
 
@@ -35,7 +37,8 @@ document |> Document.createElement("div")
 */
 
 /* After subtyping: */
-document |> Document.createElement("div")
+let _inner: option(string) =
+  document |> Document.createElement("div")
          |> Element.parentElement /* inherited from Node, returns DomRe.element */
          |> map(Element.innerText); /* inherited from Node */
 
@@ -57,7 +60,7 @@ document |> Document.asHtmlDocument
 */
 
 /* After subtyping: */
-document |> Document.asHtmlDocument
+let _unit: option(unit) = document |> Document.asHtmlDocument
          |> andThen(HtmlDocument.body)
          |> map(Element.appendChild(el));
 
