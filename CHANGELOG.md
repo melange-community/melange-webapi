@@ -1,3 +1,8 @@
+### Unreleased
+
+* Migrate to Melange
+* Remove bsdoc
+
 ### 0.19.2
 
 * Removed peer dependency on `bsdoc`

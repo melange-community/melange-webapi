@@ -1,4 +1,4 @@
-Thank you for contributing to `bs-webapi`. Please follow the steps here
+Thank you for contributing to `melange-webapi`. Please follow the steps here
 to help keep things smooth.
 
 ## Before starting
@@ -10,8 +10,7 @@ verify the issue and potentially save work.
 Please ensure you turn off auto-formatting while working on this project.
 For historical reasons, it does not use auto-formatting. If you auto-
 format files in this project, it will lead to noisy diffs that will be
-hard to review. I have included a project-specific setting that instructs
-VSCode to turn off auto-formatting.
+hard to review.
 
 ## When creating a PR
 
@@ -27,8 +26,7 @@ Please ensure the PR has the following:
 - Adds changelog entry for the PR
 - Updates version number in `package.json`–if necessary–following SemVer
 
-I will also expect other best practices in the PR, e.g. proper git commit
-messages.
+Please use proper git commit messages.
 
 ## During review
 
@@ -38,5 +36,6 @@ I will squash the branch when merging anyway.
 
 ## After PR merged or closed
 
-Thank you for your contribution. I usually publish a new version on
-Sunday night (Eastern Time).
+Thank you for your contribution. There is no calendar for publishing new
+versions, if you want your change to be released, reach out on
+[the Reason discord](https://discord.gg/reasonml).

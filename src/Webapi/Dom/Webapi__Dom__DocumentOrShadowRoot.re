@@ -1,4 +1,4 @@
 /* Mixin */
-module Impl = (T: {type t;}) => {
+module Impl = (T: {}) => {
   /* TODO: Implemented in Shadow DOM spec */
 };

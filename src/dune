@@ -1,0 +1,9 @@
+(include_subdirs unqualified)
+
+(library
+ (name webapi)
+ (public_name melange-webapi)
+ (wrapped false)
+ (libraries melange-fetch)
+ (modes melange)
+ (preprocess (pps melange.ppx)))
