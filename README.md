@@ -1,10 +1,6 @@
 # melange-webapi
 
-**IMPORTANT: this repository is deprecated in favour of** https://github.com/tinymce/rescript-webapi/
-
-Please use ReScript-WebAPI going forward.
-
-Experimental bindings to the DOM and other Web APIs.
+Bindings to the DOM and other Web APIs.
 
 The bindings are currently undocumented, but as the code mostly just consists of external declarations with type signatures, the code itself is fairly self-documenting. The bindings generally also correspond very well to the Web APIs they bind to, so using MDN along with GitHub should go a long way.
 
