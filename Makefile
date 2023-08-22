@@ -13,7 +13,7 @@ help: ## Print this help message
 
 .PHONY: create-switch
 create-switch: ## Create opam switch
-	opam switch create . 4.14.1 -y --deps-only
+	opam switch create . 5.1.0~alpha2 -y --deps-only
 
 .PHONY: init
 init: create-switch install ## Configure everything to develop this repository in local
@@ -26,7 +26,7 @@ install: ## Install development dependencies
 
 .PHONY: build
 build: ## Build the project
-	$(DUNE) build @melange @node
+	$(DUNE) build @melange
 
 .PHONY: build_verbose
 build_verbose: ## Build the project
