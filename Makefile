@@ -26,7 +26,7 @@ install: ## Install development dependencies
 
 .PHONY: build
 build: ## Build the project
-	$(DUNE) build @melange @node
+	$(DUNE) build @melange
 
 .PHONY: build_verbose
 build_verbose: ## Build the project

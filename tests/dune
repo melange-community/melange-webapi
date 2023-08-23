@@ -1,3 +1,6 @@
+(include_subdirs unqualified)
+
 (melange.emit
  (target tests)
- (libraries webapi))
+ (libraries webapi)
+ (preprocess (pps melange.ppx)))

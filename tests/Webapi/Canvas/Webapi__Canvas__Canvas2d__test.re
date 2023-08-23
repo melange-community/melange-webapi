@@ -70,11 +70,11 @@ let width = width(measureText);
 ctx |> fillText("foo!", ~x=0.0, ~y=0.0, ~maxWidth=width);
 ctx |> strokeText("foo!", ~x=0.0, ~y=0.0, ~maxWidth=width);
 let imageData = createImageDataCoords(ctx, ~width=0.0, ~height=0.0);
-createImageDataFromImage(ctx, imageData);
-Image.width(imageData);
-Image.height(imageData);
+let _: Image.t = createImageDataFromImage(ctx, imageData);
+let _: float = Image.width(imageData);
+let _: float = Image.height(imageData);
 
-getImageData(ctx, ~sx=0.0, ~sy=0.0, ~sw=0.0, ~sh=0.0);
+let _: Image.t = getImageData(ctx, ~sx=0.0, ~sy=0.0, ~sw=0.0, ~sh=0.0);
 let _: unit = putImageData(ctx, ~imageData, ~dx=0.0, ~dy=0.0);
 let _: unit = putImageDataWithDirtyRect(ctx, ~imageData, ~dx=0.0, ~dy=0.0, ~dirtyX=0.0, ~dirtyY=0.0, ~dirtyWidth=0.0, ~dirtyHeight=0.0);
 
