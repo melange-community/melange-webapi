@@ -1,7 +1,7 @@
 module Impl = (T: {type t;}) => {
   type t_htmlElement = T.t;
 
-  let ofElement: Dom.element => Js.null(t_htmlElement) = [%bs.raw
+  let ofElement: Dom.element => Js.null(t_htmlElement) = [%mel.raw
     {|
     function (element) {
       // BEWARE: Assumes "contentEditable" uniquely identifies an HTMLELement

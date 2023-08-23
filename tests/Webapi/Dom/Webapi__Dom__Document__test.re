@@ -26,9 +26,9 @@ let _ = createAttributeNS("http://...", "foo", document);
 let _ = createComment("witty comment", document);
 let _ = createDocumentFragment(document);
 let _ = createElement("div", document);
-let _ = createElementWithOptions("div", [%bs.raw "{}"], document); /* I've no idea what this options object is supposed to be, even the spec doesn't seem to bother explaining it */
+let _ = createElementWithOptions("div", [%mel.raw "{}"], document); /* I've no idea what this options object is supposed to be, even the spec doesn't seem to bother explaining it */
 let _ = createElementNS("http://...", "foo", document);
-let _ = createElementNSWithOptions("http://...", "div", [%bs.raw "{}"], document); /* I've no idea what this options object is supposed to be, even the spec doesn't seem to bother explaining it */
+let _ = createElementNSWithOptions("http://...", "div", [%mel.raw "{}"], document); /* I've no idea what this options object is supposed to be, even the spec doesn't seem to bother explaining it */
 let _ = createEvent("MyCustomEvent", document);
 let _ = createNodeIterator(el, document);
 let _ = createNodeIteratorWithWhatToShow(el, WhatToShow._All, document);
@@ -50,7 +50,7 @@ let _ = importNode(el, document);
 let _ = importNodeDeep(el, document);
 /* TODO: These get dead code eliminated
 let _ = registerElement(document, "my-component");
-let _ = registerElementWithOptions(document, "my-component", [%bs.raw "{}"]);
+let _ = registerElementWithOptions(document, "my-component", [%mel.raw "{}"]);
 */
 let _ = getElementById("root", document);
 let _ = querySelector(".lstlisting", document);

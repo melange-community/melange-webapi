@@ -114,9 +114,9 @@ let setFillStyle = (type a, ctx: t, _: style(a), v: a) =>
 let reifyStyle = (type a, x: 'a) : (style(a), a) => {
   module Internal = {
     type constructor;
-    [@bs.val] external canvasGradient : constructor = "CanvasGradient"; /* internal */
-    [@bs.val] external canvasPattern : constructor = "CanvasPattern"; /* internal */
-    let instanceOf: ('a, constructor) => bool = [%bs.raw {|function(x,y) {return +(x instanceof y)}|}]; /* internal */
+    external canvasGradient : constructor = "CanvasGradient"; /* internal */
+    external canvasPattern : constructor = "CanvasPattern"; /* internal */
+    let instanceOf: ('a, constructor) => bool = [%mel.raw {|function(x,y) {return +(x instanceof y)}|}]; /* internal */
   };
 
   (
