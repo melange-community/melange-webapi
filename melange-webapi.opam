@@ -15,10 +15,10 @@ doc: "https://github.com/melange-community/melange-webapi/"
 bug-reports: "https://github.com/melange-community/melange-webapi/issues"
 depends: [
   "dune" {>= "3.8"}
-  "ocaml" {>= "4.14.0"}
-  "melange"
+  "ocaml"
+  "melange" {>= "2.0"}
   "melange-fetch"
-  "reason" {>= "3.8.2"}
+  "reason" {>= "3.10"}
   "ocaml-lsp-server" {with-test}
   "odoc" {with-doc}
 ]
@@ -38,7 +38,7 @@ build: [
 ]
 dev-repo: "git+https://github.com/melange-community/melange-webapi.git"
 pin-depends: [
-  [ "melange.dev" "git+https://github.com/melange-re/melange.git#a662d964185d862bc31e7854cf0c9988d6f23429" ]
-  [ "melange-fetch.dev" "git+https://github.com/melange-community/melange-fetch.git#d2183ec245cbf5c7a8f99f8c41d2de0758c8cda7" ]
-  [ "reason.dev" "git+https://github.com/reasonml/reason.git#972261dab3b651ff8ab9b8b9fcc32940595073dc" ]
+  [ "melange.2.0.0"         "git+https://github.com/melange-re/melange.git#e114ad55d185badeb32b3c766c9ab547495eac1b" ]
+  [ "reason.3.10.0"         "git+https://github.com/reasonml/reason.git#972261dab3b651ff8ab9b8b9fcc32940595073dc" ]
+  [ "melange-fetch.dev"     "git+https://github.com/melange-community/melange-fetch.git#796f941b6b85eb7e6182ac6e4f40708bfde7a9a9" ]
 ]
