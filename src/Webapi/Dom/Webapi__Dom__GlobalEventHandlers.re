@@ -1,9 +1,58 @@
 /* Mixin */
-module Impl = (T: {type t;}) => {
-  [@bs.send.pipe : T.t] external addSelectionChangeEventListener : ([@bs.as "selectionchange"] _, Dom.focusEvent => unit) => unit = "addEventListener";
-  [@bs.send.pipe : T.t] external addSelectionChangeEventListenerWithOptions : ([@bs.as "selectionchange"] _, Dom.focusEvent => unit, {. "capture": bool, "once": bool, "passive": bool}) => unit = "addEventListener"; /* not widely supported */
-  [@bs.send.pipe : T.t] external addSelectionChangeEventListenerUseCapture : ([@bs.as "selectionchange"] _, Dom.focusEvent => unit, [@bs.as {json|true|json}] _) => unit = "addEventListener";
-  [@bs.send.pipe : T.t] external removeSelectionChangeEventListener : ([@bs.as "selectionchange"] _, Dom.focusEvent => unit) => unit = "removeEventListener";
-  [@bs.send.pipe : T.t] external removeSelectionChangeEventListenerWithOptions : ([@bs.as "selectionchange"] _, Dom.focusEvent => unit, {. "capture": bool, "passive": bool}) => unit = "removeEventListener"; /* not widely supported */
-  [@bs.send.pipe : T.t] external removeSelectionChangeEventListenerUseCapture : ([@bs.as "selectionchange"] _, Dom.focusEvent =>unit, [@bs.as {json|true|json}] _) => unit = "removeEventListener";
+module Impl = (T: {
+                 type t;
+               }) => {
+  [@mel.send.pipe: T.t]
+  external addSelectionChangeEventListener:
+    ([@mel.as "selectionchange"] _, Dom.focusEvent => unit) => unit =
+    "addEventListener";
+  [@mel.send.pipe: T.t]
+  external addSelectionChangeEventListenerWithOptions:
+    (
+      [@mel.as "selectionchange"] _,
+      Dom.focusEvent => unit,
+      {
+        .
+        "capture": bool,
+        "once": bool,
+        "passive": bool,
+      }
+    ) =>
+    unit =
+    "addEventListener"; /* not widely supported */
+  [@mel.send.pipe: T.t]
+  external addSelectionChangeEventListenerUseCapture:
+    (
+      [@mel.as "selectionchange"] _,
+      Dom.focusEvent => unit,
+      [@mel.as {json|true|json}] _
+    ) =>
+    unit =
+    "addEventListener";
+  [@mel.send.pipe: T.t]
+  external removeSelectionChangeEventListener:
+    ([@mel.as "selectionchange"] _, Dom.focusEvent => unit) => unit =
+    "removeEventListener";
+  [@mel.send.pipe: T.t]
+  external removeSelectionChangeEventListenerWithOptions:
+    (
+      [@mel.as "selectionchange"] _,
+      Dom.focusEvent => unit,
+      {
+        .
+        "capture": bool,
+        "passive": bool,
+      }
+    ) =>
+    unit =
+    "removeEventListener"; /* not widely supported */
+  [@mel.send.pipe: T.t]
+  external removeSelectionChangeEventListenerUseCapture:
+    (
+      [@mel.as "selectionchange"] _,
+      Dom.focusEvent => unit,
+      [@mel.as {json|true|json}] _
+    ) =>
+    unit =
+    "removeEventListener";
 };

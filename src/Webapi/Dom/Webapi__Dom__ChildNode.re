@@ -1,4 +1,6 @@
 /* Mixin */
-module Impl = (T: {type t;}) => {
-  [@bs.send.pipe : T.t] external remove : unit = "remove";
+module Impl = (T: {
+                 type t;
+               }) => {
+  [@mel.send.pipe: T.t] external remove: unit = "remove";
 };
