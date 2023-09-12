@@ -2,20 +2,26 @@ module URLSearchParams = {
   type t;
 
   [@mel.new] external make: string => t = "URLSearchParams";
-  [@mel.new] external makeWithDict: Js.Dict.t(string) => t = "URLSearchParams";
-  [@mel.new] external makeWithArray: array((string, string)) => t = "URLSearchParams";
-  [@mel.send.pipe : t] external append: (string, string) => unit = "append";
-  [@mel.send.pipe : t] external delete: string => unit = "delete";
-  [@mel.send.pipe : t] external entries: Js.Array.array_like((string, string)) = "entries";
-  [@mel.send.pipe : t] external forEach: ([@mel.uncurry] (string, string) => unit) => unit = "forEach";
-  [@mel.return nullable][@mel.send.pipe : t] external get: string => option(string) = "get";
-  [@mel.send.pipe : t] external getAll: string => array(string) = "getAll";
-  [@mel.send.pipe : t] external has: string => bool = "has";
-  [@mel.send.pipe : t] external keys: Js.Array.array_like(string) = "keys";
-  [@mel.send.pipe : t] external set: (string, string) => unit = "set";
-  [@mel.send.pipe : t] external sort: unit = "sort";
-  [@mel.send.pipe : t] external toString: string = "toString";
-  [@mel.send.pipe : t] external values: Js.Array.array_like(string) = "values";
+  [@mel.new]
+  external makeWithDict: Js.Dict.t(string) => t = "URLSearchParams";
+  [@mel.new]
+  external makeWithArray: array((string, string)) => t = "URLSearchParams";
+  [@mel.send.pipe: t] external append: (string, string) => unit = "append";
+  [@mel.send.pipe: t] external delete: string => unit = "delete";
+  [@mel.send.pipe: t]
+  external entries: Js.Array.array_like((string, string)) = "entries";
+  [@mel.send.pipe: t]
+  external forEach: ([@mel.uncurry] ((string, string) => unit)) => unit =
+    "forEach";
+  [@mel.return nullable] [@mel.send.pipe: t]
+  external get: string => option(string) = "get";
+  [@mel.send.pipe: t] external getAll: string => array(string) = "getAll";
+  [@mel.send.pipe: t] external has: string => bool = "has";
+  [@mel.send.pipe: t] external keys: Js.Array.array_like(string) = "keys";
+  [@mel.send.pipe: t] external set: (string, string) => unit = "set";
+  [@mel.send.pipe: t] external sort: unit = "sort";
+  [@mel.send.pipe: t] external toString: string = "toString";
+  [@mel.send.pipe: t] external values: Js.Array.array_like(string) = "values";
 };
 
 type t;
@@ -23,11 +29,12 @@ type t;
 [@mel.new] external make: string => t = "URL";
 
 /** Deprecated, use [makeWith] instead. */
-[@deprecated "Use [makeWith] instead."]
-[@mel.new] external makeWithBase: (string, string) => t = "URL";
+[@deprecated "Use [makeWith] instead."] [@mel.new]
+external makeWithBase: (string, string) => t = "URL";
 
 /** @since 0.19.0 */
-[@mel.new] external makeWith: (string, ~base: string) => t = "URL";
+[@mel.new]
+external makeWith: (string, ~base: string) => t = "URL";
 
 [@mel.get] external hash: t => string = "hash";
 [@mel.set] external setHash: (t, string) => unit = "hash";
@@ -53,5 +60,7 @@ type t;
 [@mel.set] external setUsername: (t, string) => unit = "username";
 [@mel.get] external toJson: t => string = "toJson";
 
-[@mel.scope "URL"] external createObjectURL : Webapi__File.t => string = "createObjectURL";
-[@mel.scope "URL"] external revokeObjectURL : string => unit = "revokeObjectURL";
+[@mel.scope "URL"]
+external createObjectURL: Webapi__File.t => string = "createObjectURL";
+[@mel.scope "URL"]
+external revokeObjectURL: string => unit = "revokeObjectURL";
