@@ -1,4 +1,7 @@
 /* Mixin */
-module Impl = (T: {type t;}) => {
-  [@bs.send.pipe : T.t] [@bs.return nullable] external getElementById : string => option(Dom.element) = "getElementById";
+module Impl = (T: {
+                 type t;
+               }) => {
+  [@mel.send.pipe: T.t] [@mel.return nullable]
+  external getElementById: string => option(Dom.element) = "getElementById";
 };

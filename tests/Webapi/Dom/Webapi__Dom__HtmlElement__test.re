@@ -2,13 +2,15 @@ open Webapi.Dom;
 open HtmlElement;
 
 let el =
-  document |> Document.createElement("strong")
-           |> Element.asHtmlElement
-           |> TestHelpers.unsafelyUnwrapOption;
+  document
+  |> Document.createElement("strong")
+  |> Element.asHtmlElement
+  |> TestHelpers.unsafelyUnwrapOption;
 let el2 =
-  document |> Document.createElement("small")
-           |> Element.asHtmlElement
-           |> TestHelpers.unsafelyUnwrapOption;
+  document
+  |> Document.createElement("small")
+  |> Element.asHtmlElement
+  |> TestHelpers.unsafelyUnwrapOption;
 let event = document |> Document.createEvent("my-event");
 
 let _ = accessKey(el);
@@ -35,7 +37,7 @@ let _ = setItemId(el, "my-id");
 let _ = itemRef(el);
 let _ = itemProp(el);
 let _ = itemValue(el);
-let _ = setItemValue(el, [%bs.raw "{}"]);
+let _ = setItemValue(el, [%mel.raw "{}"]);
 let _ = lang(el);
 let _ = setLang(el, "en");
 let _ = offsetHeight(el);
