@@ -19,7 +19,17 @@
       let
         pkgs = nixpkgs.legacyPackages."${system}".appendOverlays [
           (self: super: {
-            ocamlPackages = super.ocaml-ng.ocamlPackages_5_1;
+            ocamlPackages = super.ocaml-ng.ocamlPackages_5_1.overrideScope' (oself: osuper: {
+              ppxlib = osuper.ppxlib.overrideAttrs (_: {
+                src = super.fetchFromGitHub {
+                  owner = "ocaml-ppx";
+                  repo = "ppxlib";
+                  rev = "4026b795d9b9bd44beaf11b790a7f9a26fc0aa63";
+                  hash = "sha256-dRWHkE9aZS7gQp5CAT8qCX/uKYEbiIy7our5XXgMHGI=";
+                };
+
+              });
+            });
           })
           melange-src.overlays.default
         ];
