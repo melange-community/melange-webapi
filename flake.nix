@@ -7,35 +7,18 @@
     url = "github:nix-ocaml/nix-overlays";
     inputs.flake-utils.follows = "flake-utils";
   };
-  inputs.melange-src = {
-    url = "github:melange-re/melange";
-    inputs.nix-filter.follows = "nix-filter";
-    inputs.flake-utils.follows = "flake-utils";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
 
-  outputs = { self, nixpkgs, flake-utils, nix-filter, melange-src }:
+  outputs = { self, nixpkgs, flake-utils, nix-filter }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages."${system}".appendOverlays [
           (self: super: {
-            ocamlPackages = super.ocaml-ng.ocamlPackages_5_1.overrideScope' (oself: osuper: {
-              ppxlib = osuper.ppxlib.overrideAttrs (_: {
-                src = super.fetchFromGitHub {
-                  owner = "ocaml-ppx";
-                  repo = "ppxlib";
-                  rev = "4026b795d9b9bd44beaf11b790a7f9a26fc0aa63";
-                  hash = "sha256-dRWHkE9aZS7gQp5CAT8qCX/uKYEbiIy7our5XXgMHGI=";
-                };
-
-              });
-            });
+            ocamlPackages = super.ocaml-ng.ocamlPackages_5_1;
           })
-          melange-src.overlays.default
         ];
         inherit (pkgs) nodejs_latest lib stdenv darwin;
 
-        melange-json = with pkgs.ocamlPackages; buildDunePackage {
+        melange-webapi = with pkgs.ocamlPackages; buildDunePackage {
           pname = "melange-webapi";
           version = "dev";
 
@@ -48,20 +31,19 @@
         };
 
         mkShell = { buildInputs ? [ ] }: pkgs.mkShell {
-          inputsFrom = [ melange-json ];
+          inputsFrom = [ melange-webapi ];
           nativeBuildInputs = with pkgs; [
             yarn
             nodejs_latest
           ] ++ (with pkgs.ocamlPackages; [
             ocamlformat
             merlin
-            melange-jest
           ]);
           inherit buildInputs;
         };
       in
       rec {
-        packages.default = melange-json;
+        packages.default = melange-webapi;
         devShells = {
           default = mkShell { };
           release = mkShell {

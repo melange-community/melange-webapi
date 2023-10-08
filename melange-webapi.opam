@@ -6,17 +6,14 @@ maintainer: [
   "Javier Chávarri <javier.chavarri@gmail.com>"
   "David Sancho <dsnxmoreno@gmail.com>"
 ]
-authors: [
-  "chenglou"
-]
+authors: ["Cheng Lou <chenglou@users.noreply.github.com>"]
 license: "MIT"
-homepage: "https://github.com/melange-community/melange-webapi/"
-doc: "https://github.com/melange-community/melange-webapi/"
+homepage: "https://github.com/melange-community/melange-webapi"
 bug-reports: "https://github.com/melange-community/melange-webapi/issues"
 depends: [
   "dune" {>= "3.8"}
-  "ocaml"
-  "melange" {>= "2.0"}
+  "ocaml" {>= "5.1"}
+  "melange" {>= "2.0.0"}
   "melange-fetch"
   "reason" {>= "3.10"}
   "ocaml-lsp-server" {with-test}
@@ -37,8 +34,3 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/melange-community/melange-webapi.git"
-pin-depends: [
-  [ "melange.2.0.0"         "git+https://github.com/melange-re/melange.git#e114ad55d185badeb32b3c766c9ab547495eac1b" ]
-  [ "reason.3.10.0"         "git+https://github.com/reasonml/reason.git#972261dab3b651ff8ab9b8b9fcc32940595073dc" ]
-  [ "melange-fetch.dev"     "git+https://github.com/melange-community/melange-fetch.git#796f941b6b85eb7e6182ac6e4f40708bfde7a9a9" ]
-]
