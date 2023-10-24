@@ -6,11 +6,11 @@ The bindings are currently undocumented, but as the code mostly just consists of
 
 ## Installation
 
-```
-opam pin add melange-webapi.dev -y git+https://github.com/melange-community/melange-webapi.git#master
+```sh
+opam install melange-webapi
 ```
 Then add `melange-webapi` to the `libraries` field in your `dune` file:
-```
+```lisp
   (libraries melange-webapi)
 ```
 
