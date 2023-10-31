@@ -13,7 +13,13 @@ module File = Webapi__File;
     [Webapi.Dom.HtmlFormElement.data].
 
     @since 0.18.0 */
-module FormData = Fetch.FormData;
+module FormData = {
+  include Fetch.FormData;
+
+  [@mel.new]
+  external makeWithHtmlFormElement: (Dom.HtmlFormElement.t) => t =
+    "FormData";
+};
 
 /** Re-export from [bs-fetch] for convenience. See also
     {!module:FormData}.
