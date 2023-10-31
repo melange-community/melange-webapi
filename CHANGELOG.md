@@ -1,5 +1,9 @@
 ### Unreleased
 
+* feat: bind to new FormData(HtmlFormElement) by @andreypopp  (#13)
+
+### 0.20.0
+
 * Migrate to Melange
 * Remove bsdoc
 
