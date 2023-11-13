@@ -12,7 +12,7 @@ homepage: "https://github.com/melange-community/melange-webapi"
 bug-reports: "https://github.com/melange-community/melange-webapi/issues"
 depends: [
   "dune" {>= "3.8"}
-  "ocaml" {>= "5.1"}
+  "ocaml"
   "melange" {>= "2.0.0"}
   "melange-fetch"
   "reason" {>= "3.10"}
