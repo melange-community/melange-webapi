@@ -26,8 +26,7 @@
  (synopsis "Melange bindings to the DOM")
  (description "Melange bindings to the DOM and other Web APIs.")
  (depends
-  (ocaml
-   (>= "5.1"))
+  ocaml
   (melange
    (>= "2.0.0"))
   melange-fetch
