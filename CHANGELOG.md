@@ -1,6 +1,7 @@
 ### Unreleased
 
-* feat: bind to new FormData(HtmlFormElement) by @andreypopp  (#13)
+* feat: bind to new FormData(HtmlFormElement) by @andreypopp (#13)
+* fix: compatibilty with Melange v3 by @anmonteiro (#16)
 
 ### 0.20.0
 
