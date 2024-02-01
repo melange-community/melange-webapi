@@ -5,7 +5,7 @@ type t = Dom.domTokenList;
 [@mel.send.pipe: t] [@mel.return nullable]
 external item: int => option(string) = "item";
 [@mel.send.pipe: t] external add: string => unit = "add";
-[@mel.send.pipe: t] [@mel.splice]
+[@mel.send.pipe: t] [@mel.variadic]
 external addMany: array(string) => unit = "add";
 [@mel.send.pipe: t] external contains: string => bool = "contains";
 /* entries: iterator API, should have language support */
@@ -13,7 +13,7 @@ external addMany: array(string) => unit = "add";
 external forEach: ((string, int) => unit) => unit = "forEach";
 /* keys: iterator API, should have language support */
 [@mel.send.pipe: t] external remove: string => unit = "remove";
-[@mel.send.pipe: t] [@mel.splice]
+[@mel.send.pipe: t] [@mel.variadic]
 external removeMany: array(string) => unit = "remove";
 [@mel.send.pipe: t] external replace: (string, string) => unit = "replace"; /* experimental */
 [@mel.send.pipe: t] external supports: string => bool = "supports"; /* experimental, Content Management Level 1 */
