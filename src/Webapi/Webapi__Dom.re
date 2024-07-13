@@ -34,6 +34,7 @@ module Image = Webapi__Dom__Image;
 module InputEvent = Webapi__Dom__InputEvent;
 module KeyboardEvent = Webapi__Dom__KeyboardEvent;
 module Location = Webapi__Dom__Location;
+module MessageEvent = Webapi__Dom__MessageEvent;
 module MouseEvent = Webapi__Dom__MouseEvent;
 module MutationObserver = Webapi__Dom__MutationObserver;
 module MutationRecord = Webapi__Dom__MutationRecord;
