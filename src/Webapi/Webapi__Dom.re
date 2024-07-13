@@ -65,6 +65,7 @@ module ValidityState = Webapi__Dom__ValidityState;
 module WebGlContextEvent = Webapi__Dom__WebGlContextEvent;
 module WheelEvent = Webapi__Dom__WheelEvent;
 module Window = Webapi__Dom__Window;
+module Worker = Webapi__Dom__Worker;
 
 include Webapi__Dom__Types;
 
