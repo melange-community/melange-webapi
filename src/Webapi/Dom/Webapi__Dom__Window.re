@@ -133,6 +133,7 @@ module Impl = (T: {
     "removeEventListener";
 
   [@mel.set] external setOnLoad: (t_window, unit => unit) => unit = "onload"; /* use addEventListener instead? */
+  [@mel.set] external setOnMessage: (t_window, Dom.messageEvent => unit) => unit = "onmessage";
 };
 
 type t = Dom.window;
