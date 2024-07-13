@@ -5,7 +5,7 @@ include Webapi__Dom__EventTarget.Impl({
 });
 
 [@mel.new] external make: string => t = "Worker";
-[@mel.send.pipe: t] external postMessage: (Js.t({..})) => unit = "postMessage";
+[@mel.send.pipe: t] external postMessage: 'a => unit = "postMessage";
 [@mel.send.pipe: t] external terminate: unit => unit = "terminate";
 
 [@mel.set] external setOnError: (t, Dom.errorEvent => unit) => unit = "onerror";
