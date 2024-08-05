@@ -19,6 +19,16 @@ external removeMessageEventListener:
   ([@mel.as "message"] _, Dom.messageEvent => unit) => unit =
   "removeEventListener";
 
+[@mel.send.pipe: t]
+external addMessageErrorEventListener:
+  ([@mel.as "message"] _, Dom.messageEvent => unit) => unit =
+  "addEventListener";
+
+[@mel.send.pipe: t]
+external removeMessageErrorEventListener:
+  ([@mel.as "message"] _, Dom.messageEvent => unit) => unit =
+  "removeEventListener";
+
 [@mel.set]
 external setOnError: (t, Dom.errorEvent => unit) => unit = "onerror";
 [@mel.set]
