@@ -70,6 +70,7 @@ module Worker = Webapi__Dom__Worker;
 include Webapi__Dom__Types;
 
 external window: Dom.window = "window";
+external self: Dom.workerGlobalScope = "self";
 external document: Dom.document = "document";
 [@mel.scope "window"] external history: Dom.history = "history";
 [@mel.scope "window"] external location: Dom.location = "location";
