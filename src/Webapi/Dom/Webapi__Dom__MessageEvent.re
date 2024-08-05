@@ -20,4 +20,4 @@ external source:
     | `ServiceWorker(Dom.serviceWorker)
   ] =
   "source";
-[@mel.get] external ports: t => Js.Array.t(Dom.messagePort) = "ports";
+[@mel.get] external ports: t => array(Dom.messagePort) = "ports";
