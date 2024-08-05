@@ -7,7 +7,7 @@ include Webapi__Dom__EventTarget.Impl({
 [@mel.new] external make: string => t = "Worker";
 [@mel.new] external makeWithUrl: Webapi__Url.t => t = "Worker";
 [@mel.send.pipe: t] external postMessage: 'a => unit = "postMessage";
-[@mel.send.pipe: t] external terminate: unit => unit = "terminate";
+[@mel.send.pipe: t] external terminate: unit = "terminate";
 
 [@mel.send.pipe: t]
 external addMessageEventListener:
