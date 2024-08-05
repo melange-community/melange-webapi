@@ -74,7 +74,7 @@ module DedicatedWorkerGlobalScope = Webapi__Dom__DedicatedWorkerGlobalScope;
 include Webapi__Dom__Types;
 
 external window: Dom.window = "window";
-external self: Dom.workerGlobalScope = "self";
+external dedicatedWorkerGlobalScope: Dom.dedicatedWorkerGlobalScope = "self";
 external document: Dom.document = "document";
 [@mel.scope "window"] external history: Dom.history = "history";
 [@mel.scope "window"] external location: Dom.location = "location";
