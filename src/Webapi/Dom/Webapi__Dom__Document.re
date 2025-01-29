@@ -6,7 +6,11 @@ module Impl = (T: {
   let asHtmlDocument: T.t => Js.null(Dom.htmlDocument) = [%raw
     {|
     function (document) {
-      return document.doctype.name === "html" ?  document : null;
+      if (document.doctype) {
+          return document.doctype.name === "html" ?  document : null;
+      } else {
+          return null
+      }
     }
   |}
   ];
