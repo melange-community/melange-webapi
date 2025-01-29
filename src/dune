@@ -4,7 +4,7 @@
  (name webapi)
  (public_name melange-webapi)
  (wrapped false)
- (libraries melange-fetch melange.dom)
+ (libraries melange-fetch (re_export melange.dom))
  (modes melange)
  (preprocess
   (pps melange.ppx)))
