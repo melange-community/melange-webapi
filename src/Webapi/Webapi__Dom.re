@@ -34,6 +34,9 @@ module Image = Webapi__Dom__Image;
 module InputEvent = Webapi__Dom__InputEvent;
 module KeyboardEvent = Webapi__Dom__KeyboardEvent;
 module Location = Webapi__Dom__Location;
+module MessageEvent = Webapi__Dom__MessageEvent;
+module MessageChannel = Webapi__Dom__MessageChannel;
+module MessagePort = Webapi__Dom__MessagePort;
 module MouseEvent = Webapi__Dom__MouseEvent;
 module MutationObserver = Webapi__Dom__MutationObserver;
 module MutationRecord = Webapi__Dom__MutationRecord;
@@ -64,10 +67,14 @@ module ValidityState = Webapi__Dom__ValidityState;
 module WebGlContextEvent = Webapi__Dom__WebGlContextEvent;
 module WheelEvent = Webapi__Dom__WheelEvent;
 module Window = Webapi__Dom__Window;
+module Worker = Webapi__Dom__Worker;
+module WorkerGlobalScope = Webapi__Dom__WorkerGlobalScope;
+module DedicatedWorkerGlobalScope = Webapi__Dom__DedicatedWorkerGlobalScope;
 
 include Webapi__Dom__Types;
 
 external window: Dom.window = "window";
+external dedicatedWorkerGlobalScope: Dom.dedicatedWorkerGlobalScope = "self";
 external document: Dom.document = "document";
 [@mel.scope "window"] external history: Dom.history = "history";
 [@mel.scope "window"] external location: Dom.location = "location";
