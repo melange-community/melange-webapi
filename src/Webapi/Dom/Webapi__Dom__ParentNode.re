@@ -9,8 +9,10 @@ module Impl = (T: {
   [@mel.get] [@mel.return nullable]
   external lastElementChild: T.t => option(Dom.element) = "lastElementChild";
   [@mel.get] external childElementCount: T.t => int = "childElementCount";
-  [@mel.send.pipe: T.t] [@mel.return nullable]
-  external querySelector: string => option(Dom.element) = "querySelector";
-  [@mel.send.pipe: T.t]
-  external querySelectorAll: string => Dom.nodeList = "querySelectorAll";
+  [@mel.send] [@mel.return nullable]
+  external querySelector: (string, [@mel.this] T.t) => option(Dom.element) =
+    "querySelector";
+  [@mel.send]
+  external querySelectorAll: (string, [@mel.this] T.t) => Dom.nodeList =
+    "querySelectorAll";
 };

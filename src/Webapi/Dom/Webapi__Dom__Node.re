@@ -37,53 +37,68 @@ module Impl = (T: {
   [@mel.get] external textContent: T.t => string = "textContent";
   [@mel.set] external setTextContent: (T.t, string) => unit = "textContent";
 
-  [@mel.send.pipe: T.t]
-  external appendChild: Dom.node_like('a) => unit = "appendChild";
-  [@mel.send.pipe: T.t] external cloneNode: T.t = "cloneNode";
-  [@mel.send.pipe: T.t]
-  external cloneNodeDeep: ([@mel.as {json|true|json}] _) => T.t = "cloneNode";
-  [@mel.send.pipe: T.t]
-  external compareDocumentPosition: Dom.node_like('a) => int =
+  [@mel.send]
+  external appendChild: (Dom.node_like('a), [@mel.this] T.t) => unit =
+    "appendChild";
+  [@mel.send] external cloneNode: ([@mel.this] T.t) => T.t = "cloneNode";
+  [@mel.send]
+  external cloneNodeDeep:
+    ([@mel.as {json|true|json}] _, [@mel.this] T.t) => T.t =
+    "cloneNode";
+  [@mel.send]
+  external compareDocumentPosition:
+    (Dom.node_like('a), [@mel.this] T.t) => int =
     "compareDocumentPosition"; /* returns a bitmask which could also be represeneted as an enum, see https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition */
-  [@mel.send.pipe: T.t]
-  external contains: Dom.node_like('a) => bool = "contains";
-  [@mel.send.pipe: T.t] external getRootNode: Dom.node = "getRootNode";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
+  external contains: (Dom.node_like('a), [@mel.this] T.t) => bool =
+    "contains";
+  [@mel.send]
+  external getRootNode: ([@mel.this] T.t) => Dom.node = "getRootNode";
+  [@mel.send]
   external getRootNodeComposed:
-    ([@mel.as {json|{ "composed": true }|json}] _) => Dom.node =
+    ([@mel.as {json|{ "composed": true }|json}] _, [@mel.this] T.t) => Dom.node =
     "getRootNode";
-  [@mel.send.pipe: T.t] external hasChildNodes: bool = "hasChildNodes";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
+  external hasChildNodes: ([@mel.this] T.t) => bool = "hasChildNodes";
+  [@mel.send]
   external insertBefore:
-    (Dom.node_like('a), Dom.node_like('b)) => Dom.node_like('a) =
+    (Dom.node_like('a), Dom.node_like('b), [@mel.this] T.t) =>
+    Dom.node_like('a) =
     "insertBefore";
   /* (temporarily?) removed to reduce codegen size. This variant is just for convenience, `appendChild` can be used in place of passing `null` to `insertBefore`
-     external insertBefore : Dom.node_like 'a => Js.null (Dom.node_like 'b) => Dom.node_like 'a = "insertBefore" [@@mel.send.pipe: T.t];
+     [@mel.send]
+     external insertBefore : Dom.node_like 'a => Js.null (Dom.node_like 'b) => ([@mel.this] T.t) => Dom.node_like 'a = "insertBefore";
      let insertBefore : Dom.node_like 'a => option (Dom.node_like 'b) => T.t => Dom.node_like 'a = fun node reference self => insertBefore node (Js.Null.fromOption reference) self;
      */
-  [@mel.send.pipe: T.t]
-  external isDefaultNamespace: string => bool = "isDefaultNamespace";
-  [@mel.send.pipe: T.t]
-  external isEqualNode: Dom.node_like('a) => bool = "isEqualNode";
-  [@mel.send.pipe: T.t]
-  external isSameNode: Dom.node_like('a) => bool = "isSameNode";
-  [@mel.send.pipe: T.t] [@mel.return nullable]
-  external lookupNamespaceURI: string => option(string) =
+  [@mel.send]
+  external isDefaultNamespace: (string, [@mel.this] T.t) => bool =
+    "isDefaultNamespace";
+  [@mel.send]
+  external isEqualNode: (Dom.node_like('a), [@mel.this] T.t) => bool =
+    "isEqualNode";
+  [@mel.send]
+  external isSameNode: (Dom.node_like('a), [@mel.this] T.t) => bool =
+    "isSameNode";
+  [@mel.send] [@mel.return nullable]
+  external lookupNamespaceURI: (string, [@mel.this] T.t) => option(string) =
     "lookupNamespaceURI";
-  [@mel.send.pipe: T.t] [@mel.return nullable]
+  [@mel.send] [@mel.return nullable]
   external lookupDefaultNamespaceURI:
-    ([@mel.as {json|null|json}] _) => option(string) =
+    ([@mel.as {json|null|json}] _, [@mel.this] T.t) => option(string) =
     "lookupNamespaceURI";
-  [@mel.send.pipe: T.t] external lookupPrefix: string = "lookupPrefix";
-  [@mel.send.pipe: T.t] external normalize: unit = "normalize";
-  [@mel.send.pipe: T.t]
-  external removeChild: Dom.node_like('a) => Dom.node_like('a) =
+  [@mel.send]
+  external lookupPrefix: ([@mel.this] T.t) => string = "lookupPrefix";
+  [@mel.send] external normalize: ([@mel.this] T.t) => unit = "normalize";
+  [@mel.send]
+  external removeChild:
+    (Dom.node_like('a), [@mel.this] T.t) => Dom.node_like('a) =
     "removeChild";
 
   /** @since 0.19.0 */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external replaceChild:
-    (Dom.node_like('a), Dom.node_like('b)) => Dom.node_like('b) =
+    (Dom.node_like('a), Dom.node_like('b), [@mel.this] T.t) =>
+    Dom.node_like('b) =
     "replaceChild";
 };
 

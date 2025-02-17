@@ -60,92 +60,128 @@ module Impl = (T: {
   let visibilityState: T.t => Webapi__Dom__Types.visibilityState =
     self => Webapi__Dom__Types.decodeVisibilityState(visibilityState(self));
 
-  [@mel.send.pipe: T.t]
-  external adoptNode: Dom.element_like('a) => Dom.element_like('a) =
+  [@mel.send]
+  external adoptNode:
+    (Dom.element_like('a), [@mel.this] T.t) => Dom.element_like('a) =
     "adoptNode";
-  [@mel.send.pipe: T.t]
-  external createAttribute: string => Dom.attr = "createAttribute";
-  [@mel.send.pipe: T.t]
-  external createAttributeNS: (string, string) => Dom.attr =
+  [@mel.send]
+  external createAttribute: (string, [@mel.this] T.t) => Dom.attr =
+    "createAttribute";
+  [@mel.send]
+  external createAttributeNS: (string, string, [@mel.this] T.t) => Dom.attr =
     "createAttributeNS";
-  [@mel.send.pipe: T.t]
-  external createComment: string => Dom.comment = "createComment";
-  [@mel.send.pipe: T.t]
-  external createDocumentFragment: Dom.documentFragment =
+  [@mel.send]
+  external createComment: (string, [@mel.this] T.t) => Dom.comment =
+    "createComment";
+  [@mel.send]
+  external createDocumentFragment: ([@mel.this] T.t) => Dom.documentFragment =
     "createDocumentFragment";
-  [@mel.send.pipe: T.t]
-  external createElement: string => Dom.element = "createElement";
-  [@mel.send.pipe: T.t]
-  external createElementWithOptions: (string, Js.t({..})) => Dom.element =
+  [@mel.send]
+  external createElement: (string, [@mel.this] T.t) => Dom.element =
+    "createElement";
+  [@mel.send]
+  external createElementWithOptions:
+    (string, Js.t({..}), [@mel.this] T.t) => Dom.element =
     "createElement"; /* not widely supported */
-  [@mel.send.pipe: T.t]
-  external createElementNS: (string, string) => Dom.element =
+  [@mel.send]
+  external createElementNS: (string, string, [@mel.this] T.t) => Dom.element =
     "createElementNS";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external createElementNSWithOptions:
-    (string, string, Js.t({..})) => Dom.element =
+    (string, string, Js.t({..}), [@mel.this] T.t) => Dom.element =
     "createElementNS"; /* not widely supported */
-  [@mel.send.pipe: T.t]
-  external createEvent: string /* large enum */ => Dom.event = "createEvent"; /* discouraged (but not deprecated) in favor of Event constructors */
-  [@mel.send.pipe: T.t]
-  external createNodeIterator: Dom.node_like('a) => Dom.nodeIterator =
+  [@mel.send]
+  external createEvent: (string /* large enum */, [@mel.this] T.t) => Dom.event =
+    "createEvent"; /* discouraged (but not deprecated) in favor of Event constructors */
+  [@mel.send]
+  external createNodeIterator:
+    (Dom.node_like('a), [@mel.this] T.t) => Dom.nodeIterator =
     "createNodeIterator";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external createNodeIteratorWithWhatToShow:
-    (Dom.node_like('a), Webapi__Dom__Types.WhatToShow.t) => Dom.nodeIterator =
+    (Dom.node_like('a), Webapi__Dom__Types.WhatToShow.t, [@mel.this] T.t) =>
+    Dom.nodeIterator =
     "createNodeIterator";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external createNodeIteratorWithWhatToShowFilter:
-    (Dom.node_like('a), Webapi__Dom__Types.WhatToShow.t, Dom.nodeFilter) =>
+    (
+      Dom.node_like('a),
+      Webapi__Dom__Types.WhatToShow.t,
+      Dom.nodeFilter,
+      [@mel.this] T.t
+    ) =>
     Dom.nodeIterator =
     "createNodeIterator"; /* createProcessingInstruction */
-  [@mel.send.pipe: T.t] external createRange: Dom.range = "createRange";
-  [@mel.send.pipe: T.t]
-  external createTextNode: string => Dom.text = "createTextNode";
-  [@mel.send.pipe: T.t]
-  external createTreeWalker: Dom.element_like('a) => Dom.treeWalker =
+  [@mel.send]
+  external createRange: ([@mel.this] T.t) => Dom.range = "createRange";
+  [@mel.send]
+  external createTextNode: (string, [@mel.this] T.t) => Dom.text =
+    "createTextNode";
+  [@mel.send]
+  external createTreeWalker:
+    (Dom.element_like('a), [@mel.this] T.t) => Dom.treeWalker =
     "createTreeWalker";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external createTreeWalkerWithWhatToShow:
-    (Dom.element_like('a), Webapi__Dom__Types.WhatToShow.t) => Dom.treeWalker =
-    "createTreeWalker";
-  [@mel.send.pipe: T.t]
-  external createTreeWalkerWithWhatToShowFilter:
-    (Dom.element_like('a), Webapi__Dom__Types.WhatToShow.t, Dom.nodeFilter) =>
+    (
+      Dom.element_like('a),
+      Webapi__Dom__Types.WhatToShow.t,
+      [@mel.this] T.t
+    ) =>
     Dom.treeWalker =
     "createTreeWalker";
-  [@mel.send.pipe: T.t]
-  external elementFromPoint: (int, int) => Dom.element = "elementFromPoint"; /* experimental, but widely supported */
-  [@mel.send.pipe: T.t]
-  external elementsFromPoint: (int, int) => array(Dom.element) =
+  [@mel.send]
+  external createTreeWalkerWithWhatToShowFilter:
+    (
+      Dom.element_like('a),
+      Webapi__Dom__Types.WhatToShow.t,
+      Dom.nodeFilter,
+      [@mel.this] T.t
+    ) =>
+    Dom.treeWalker =
+    "createTreeWalker";
+  [@mel.send]
+  external elementFromPoint: (int, int, [@mel.this] T.t) => Dom.element =
+    "elementFromPoint"; /* experimental, but widely supported */
+  [@mel.send]
+  external elementsFromPoint:
+    (int, int, [@mel.this] T.t) => array(Dom.element) =
     "elementsFromPoint"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external enableStyleSheetsForSet: string => unit = "enableStyleSheetsForSet";
-  [@mel.send.pipe: T.t] external exitPointerLock: unit = "exitPointerLock"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external getAnimations: array(Dom.animation) = "getAnimations"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external getElementsByClassName: string => Dom.htmlCollection =
+  [@mel.send]
+  external enableStyleSheetsForSet: (string, [@mel.this] T.t) => unit =
+    "enableStyleSheetsForSet";
+  [@mel.send]
+  external exitPointerLock: ([@mel.this] T.t) => unit = "exitPointerLock"; /* experimental */
+  [@mel.send]
+  external getAnimations: ([@mel.this] T.t) => array(Dom.animation) =
+    "getAnimations"; /* experimental */
+  [@mel.send]
+  external getElementsByClassName:
+    (string, [@mel.this] T.t) => Dom.htmlCollection =
     "getElementsByClassName";
-  [@mel.send.pipe: T.t]
-  external getElementsByTagName: string => Dom.htmlCollection =
+  [@mel.send]
+  external getElementsByTagName:
+    (string, [@mel.this] T.t) => Dom.htmlCollection =
     "getElementsByTagName";
-  [@mel.send.pipe: T.t]
-  external getElementsByTagNameNS: (string, string) => Dom.htmlCollection =
+  [@mel.send]
+  external getElementsByTagNameNS:
+    (string, string, [@mel.this] T.t) => Dom.htmlCollection =
     "getElementsByTagNameNS";
-  [@mel.send.pipe: T.t]
-  external importNode: Dom.element_like('a) => Dom.element_like('a) =
+  [@mel.send]
+  external importNode:
+    (Dom.element_like('a), [@mel.this] T.t) => Dom.element_like('a) =
     "importNode";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external importNodeDeep:
-    (Dom.element_like('a), [@mel.as {json|true|json}] _) =>
+    (Dom.element_like('a), [@mel.as {json|true|json}] _, [@mel.this] T.t) =>
     Dom.element_like('a) =
     "importNode";
-  [@mel.send.pipe: T.t]
-  external registerElement: (string, unit) => Dom.element = "registerElement"; /* experimental and deprecated in favor of customElements.define() */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
+  external registerElement: (string, unit, [@mel.this] T.t) => Dom.element =
+    "registerElement"; /* experimental and deprecated in favor of customElements.define() */
+  [@mel.send]
   external registerElementWithOptions:
-    (string, Js.t({..}), unit) => Dom.element =
+    (string, Js.t({..}), unit, [@mel.this] T.t) => Dom.element =
     "registerElement"; /* experimental and deprecated in favor of customElements.define() */
 
   /** XPath stuff */;
