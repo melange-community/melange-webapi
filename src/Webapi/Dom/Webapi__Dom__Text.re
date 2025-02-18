@@ -7,8 +7,9 @@ module Impl = (T: {
                }) => {
   let ofNode: Dom.node => option(T.t) = ofNode;
 
-  [@mel.send.pipe: T.t]
-  external splitText: (~offset: int, unit) => Dom.text = "splitText";
+  [@mel.send]
+  external splitText: (~offset: int, unit, [@mel.this] T.t) => Dom.text =
+    "splitText";
   [@mel.get] external wholeText: T.t => string = "wholeText";
 };
 

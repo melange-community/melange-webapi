@@ -4,8 +4,9 @@ module type Reader = {
 
   [@mel.send] external closed: t => Js.Promise.t(closed) = "closed";
   [@mel.send] external cancel: t => Js.Promise.t(unit) = "cancel";
-  [@mel.send.pipe: t]
-  external cancelWith: string => Js.Promise.t(string) = "cancel";
+  [@mel.send]
+  external cancelWith: (string, [@mel.this] t) => Js.Promise.t(string) =
+    "cancel";
   [@mel.send] external releaseLock: t => unit = "releaseLock";
 };
 
@@ -17,15 +18,16 @@ module rec DefaultReader: {
 
 module rec BYOBReader: {
   include Reader;
-  // [@mel.send.pipe: t] external read: view => Js.Promise.t(Fetch__Iterator.Next.t(string)) = "read";
+  // [@mel.send] external read: (view, [@mel.this] t) => Js.Promise.t(Fetch__Iterator.Next.t(string)) = "read";
 } = BYOBReader;
 
 type t = Fetch.readableStream;
 
 [@mel.get] external locked: t => bool = "locked";
 [@mel.send] external cancel: t => Js.Promise.t(unit) = "cancel";
-[@mel.send.pipe: t]
-external cancelWith: string => Js.Promise.t(string) = "cancel";
+[@mel.send]
+external cancelWith: (string, [@mel.this] t) => Js.Promise.t(string) =
+  "cancel";
 [@mel.send] external getReader: t => DefaultReader.t = "getReader";
 [@mel.send]
 external getReaderBYOB:

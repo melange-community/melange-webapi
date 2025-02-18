@@ -4,16 +4,21 @@ module Impl = (T: {
   [@mel.get] external data: T.t => string = "data";
   [@mel.get] external length: T.t => int = "length";
 
-  [@mel.send.pipe: T.t]
-  external substringData: (~offset: int, ~count: int) => string =
+  [@mel.send]
+  external substringData:
+    (~offset: int, ~count: int, [@mel.this] T.t) => string =
     "substringData";
-  [@mel.send.pipe: T.t] external appendData: string => unit = "appendData";
-  [@mel.send.pipe: T.t]
-  external insertData: (~offset: int, string) => unit = "insertData";
-  [@mel.send.pipe: T.t]
-  external deleteData: (~offset: int, ~count: int) => unit = "deleteData";
-  [@mel.send.pipe: T.t]
-  external replaceData: (~offset: int, ~count: int, string) => unit =
+  [@mel.send]
+  external appendData: (string, [@mel.this] T.t) => unit = "appendData";
+  [@mel.send]
+  external insertData: (~offset: int, string, [@mel.this] T.t) => unit =
+    "insertData";
+  [@mel.send]
+  external deleteData: (~offset: int, ~count: int, [@mel.this] T.t) => unit =
+    "deleteData";
+  [@mel.send]
+  external replaceData:
+    (~offset: int, ~count: int, string, [@mel.this] T.t) => unit =
     "replaceData";
 };
 

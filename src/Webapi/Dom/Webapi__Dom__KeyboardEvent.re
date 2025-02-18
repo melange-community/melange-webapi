@@ -22,8 +22,9 @@ external makeWithOptions: (string, Js.t({..})) => t = "KeyboardEvent";
 [@mel.get] external repeat: t => bool = "repeat";
 [@mel.get] external shiftKey: t => bool = "shiftKey";
 
-[@mel.send.pipe: t]
-external getModifierState: string /* modifierKey enum */ => bool =
+[@mel.send]
+external getModifierState:
+  (string /* modifierKey enum */, [@mel.this] t) => bool =
   "getModifierState";
 let getModifierState: (Webapi__Dom__Types.modifierKey, t) => bool =
   (key, self) =>

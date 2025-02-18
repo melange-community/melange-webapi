@@ -70,66 +70,100 @@ module Impl = (T: {
   [@mel.get] external top: t_window => Dom.window = "top";
   [@mel.get] external window: t_window => t_window = "window"; /* This is pointless I think, it's just here because window is the implicit global scope, and it's needed to be able to get a reference to it */
 
-  [@mel.send.pipe: t_window] external alert: string => unit = "alert";
-  [@mel.send.pipe: t_window] external blur: unit = "blur";
-  [@mel.send.pipe: t_window]
-  external cancelIdleCallback: idleCallbackId => unit = "cancelIdleCallback"; /* experimental, Cooperative Scheduling of Background Tasks */
-  [@mel.send.pipe: t_window] external close: unit = "close";
-  [@mel.send.pipe: t_window] external confirm: string => bool = "confirm";
-  [@mel.send.pipe: t_window] external focus: unit = "focus";
-  [@mel.send.pipe: t_window]
-  external getComputedStyle: Dom.element => Dom.cssStyleDeclaration =
-    "getComputedStyle";
-  [@mel.send.pipe: t_window]
-  external getComputedStyleWithPseudoElement:
-    (Dom.element, string) => Dom.cssStyleDeclaration =
-    "getComputedStyle";
-  [@mel.send.pipe: t_window]
-  external getSelection: Dom.selection = "getSelection";
-  [@mel.send.pipe: t_window]
-  external matchMedia: string => mediaQueryList = "matchMedia"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window] external moveBy: (int, int) => unit = "moveBy"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window] external moveTo: (int, int) => unit = "moveTo"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window] [@mel.return nullable]
-  external open_:
-    (~url: string, ~name: string, ~features: string=?) => option(Dom.window) =
-    "open"; /* yes, features is a stringly typed list of key value pairs, sigh */
-  [@mel.send.pipe: t_window]
-  external postMessage: ('a, string) => unit = "postMessage"; /* experimental-ish?, Web Messaging */
-  [@mel.send.pipe: t_window]
-  external postMessageWithTransfers: ('a, string, array(transferable)) => unit =
-    "postMessage"; /* experimental-ish?, Web Messaging */
-  [@mel.send.pipe: t_window] external print: unit = "print";
-  [@mel.send.pipe: t_window] external prompt: string => string = "prompt";
-  [@mel.send.pipe: t_window]
-  external promptWithDefault: (string, string) => string = "prompt";
-  /* requestAnimationFrame: accessed directly via Webapi */
-  [@mel.send.pipe: t_window]
-  external requestIdleCallback: (idleDeadline => unit) => idleCallbackId =
-    "requestIdleCallback"; /* experimental, Cooperative Scheduling of Background Tasks */
-  [@mel.send.pipe: t_window]
-  external requestIdleCallbackWithOptions:
-    (idleDeadline => unit, {. "timeout": int}) => idleCallbackId =
-    "requestIdleCallback"; /* experimental, Cooperative Scheduling of Background Tasks */
-  [@mel.send.pipe: t_window]
-  external resizeBy: (int, int) => unit = "resizeBy"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window]
-  external resizeTo: (int, int) => unit = "resizeTo"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window]
-  external scroll: (float, float) => unit = "scroll"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window]
-  external scrollBy: (float, float) => unit = "scrollBy"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window]
-  external scrollTo: (float, float) => unit = "scrollTo"; /* experimental, CSSOM View module */
-  [@mel.send.pipe: t_window] external stop: unit = "stop";
+  [@mel.send] external alert: (string, [@mel.this] t_window) => unit = "alert";
+  [@mel.send] external blur: ([@mel.this] t_window) => unit = "blur";
 
-  [@mel.send.pipe: t_window]
+  /* experimental, Cooperative Scheduling of Background Tasks */
+  [@mel.send]
+  external cancelIdleCallback: (idleCallbackId, [@mel.this] t_window) => unit =
+    "cancelIdleCallback";
+
+  [@mel.send] external close: ([@mel.this] t_window) => unit = "close";
+  [@mel.send]
+  external confirm: (string, [@mel.this] t_window) => bool = "confirm";
+  [@mel.send] external focus: ([@mel.this] t_window) => unit = "focus";
+  [@mel.send]
+  external getComputedStyle:
+    (Dom.element, [@mel.this] t_window) => Dom.cssStyleDeclaration =
+    "getComputedStyle";
+  [@mel.send]
+  external getComputedStyleWithPseudoElement:
+    (Dom.element, string, [@mel.this] t_window) => Dom.cssStyleDeclaration =
+    "getComputedStyle";
+  [@mel.send]
+  external getSelection: ([@mel.this] t_window) => Dom.selection =
+    "getSelection";
+  [@mel.send]
+  external matchMedia: (string, [@mel.this] t_window) => mediaQueryList =
+    "matchMedia"; /* experimental, CSSOM View module */
+
+  /* experimental, CSSOM View module */
+  [@mel.send]
+  external moveBy: (int, int, [@mel.this] t_window) => unit = "moveBy";
+
+  /* experimental, CSSOM View module */
+  [@mel.send]
+  external moveTo: (int, int, [@mel.this] t_window) => unit = "moveTo";
+
+  /* yes, features is a stringly typed list of key value pairs, sigh */
+  [@mel.send] [@mel.return nullable]
+  external open_:
+    (~url: string, ~name: string, ~features: string=?, [@mel.this] t_window) =>
+    option(Dom.window) =
+    "open";
+
+  [@mel.send]
+  external postMessage: ('a, string, [@mel.this] t_window) => unit =
+    "postMessage"; /* experimental-ish?, Web Messaging */
+  [@mel.send]
+  external postMessageWithTransfers:
+    ('a, string, array(transferable), [@mel.this] t_window) => unit =
+    "postMessage"; /* experimental-ish?, Web Messaging */
+  [@mel.send] external print: ([@mel.this] t_window) => unit = "print";
+  [@mel.send]
+  external prompt: (string, [@mel.this] t_window) => string = "prompt";
+  [@mel.send]
+  external promptWithDefault: (string, string, [@mel.this] t_window) => string =
+    "prompt";
+  /* requestAnimationFrame: accessed directly via Webapi */
+  [@mel.send]
+  external requestIdleCallback:
+    (idleDeadline => unit, [@mel.this] t_window) => idleCallbackId =
+    "requestIdleCallback"; /* experimental, Cooperative Scheduling of Background Tasks */
+  [@mel.send]
+  external requestIdleCallbackWithOptions:
+    (idleDeadline => unit, {. "timeout": int}, [@mel.this] t_window) =>
+    idleCallbackId =
+    "requestIdleCallback"; /* experimental, Cooperative Scheduling of Background Tasks */
+  [@mel.send]
+  external resizeBy: (int, int, [@mel.this] t_window) => unit = "resizeBy"; /* experimental, CSSOM View module */
+  [@mel.send]
+  external resizeTo: (int, int, [@mel.this] t_window) => unit = "resizeTo"; /* experimental, CSSOM View module */
+  [@mel.send]
+  external scroll: (float, float, [@mel.this] t_window) => unit = "scroll"; /* experimental, CSSOM View module */
+  [@mel.send]
+  external scrollBy: (float, float, [@mel.this] t_window) => unit = "scrollBy"; /* experimental, CSSOM View module */
+  [@mel.send]
+  external scrollTo: (float, float, [@mel.this] t_window) => unit = "scrollTo"; /* experimental, CSSOM View module */
+  [@mel.send] external stop: ([@mel.this] t_window) => unit = "stop";
+
+  [@mel.send]
   external addPopStateEventListener:
-    ([@mel.as "popstate"] _, Dom.popStateEvent => unit) => unit =
+    (
+      [@mel.as "popstate"] _,
+      Dom.popStateEvent => unit,
+      [@mel.this] t_window
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: t_window]
+  [@mel.send]
   external removePopStateEventListener:
-    ([@mel.as "popstate"] _, Dom.popStateEvent => unit) => unit =
+    (
+      [@mel.as "popstate"] _,
+      Dom.popStateEvent => unit,
+      [@mel.this] t_window
+    ) =>
+    unit =
     "removeEventListener";
 
   [@mel.set] external setOnLoad: (t_window, unit => unit) => unit = "onload"; /* use addEventListener instead? */

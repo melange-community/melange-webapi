@@ -57,30 +57,40 @@ module Impl = (T: {
   [@mel.set] external setTitle: (t_htmlDocument, string) => unit = "title";
   [@mel.get] external url: t_htmlDocument => string = "URL";
 
-  [@mel.send.pipe: t_htmlDocument] external close: unit = "close";
-  [@mel.send.pipe: t_htmlDocument]
-  external execCommand: (string, bool, Js.null(string)) => bool =
+  [@mel.send] external close: ([@mel.this] t_htmlDocument) => unit = "close";
+  [@mel.send]
+  external execCommand:
+    (string, bool, Js.null(string), [@mel.this] t_htmlDocument) => bool =
     "execCommand";
   let execCommand: (string, bool, option(string), t_htmlDocument) => bool =
     (command, show, value, self) =>
       execCommand(command, show, Js.Null.fromOption(value), self);
-  [@mel.send.pipe: t_htmlDocument]
-  external getElementsByName: string => Dom.nodeList = "getElementsByName";
-  [@mel.send.pipe: t_htmlDocument]
-  external getSelection: Dom.selection = "getSelection";
-  [@mel.send.pipe: t_htmlDocument] external hasFocus: bool = "hasFocus";
-  [@mel.send.pipe: t_htmlDocument] external open_: unit = "open";
-  [@mel.send.pipe: t_htmlDocument]
-  external queryCommandEnabled: string => bool = "queryCommandEnabled";
-  [@mel.send.pipe: t_htmlDocument]
-  external queryCommandIndeterm: string => bool = "queryCommandIndeterm";
-  [@mel.send.pipe: t_htmlDocument]
-  external queryCommandSupported: string => bool = "queryCommandSupported";
-  [@mel.send.pipe: t_htmlDocument]
-  external queryCommandValue: string => string = "queryCommandValue";
-  [@mel.send.pipe: t_htmlDocument] external write: string => unit = "write";
-  [@mel.send.pipe: t_htmlDocument]
-  external writeln: string => unit = "writeln";
+  [@mel.send]
+  external getElementsByName:
+    (string, [@mel.this] t_htmlDocument) => Dom.nodeList =
+    "getElementsByName";
+  [@mel.send]
+  external getSelection: ([@mel.this] t_htmlDocument) => Dom.selection =
+    "getSelection";
+  [@mel.send]
+  external hasFocus: ([@mel.this] t_htmlDocument) => bool = "hasFocus";
+  [@mel.send] external open_: ([@mel.this] t_htmlDocument) => unit = "open";
+  [@mel.send]
+  external queryCommandEnabled: (string, [@mel.this] t_htmlDocument) => bool =
+    "queryCommandEnabled";
+  [@mel.send]
+  external queryCommandIndeterm: (string, [@mel.this] t_htmlDocument) => bool =
+    "queryCommandIndeterm";
+  [@mel.send]
+  external queryCommandSupported: (string, [@mel.this] t_htmlDocument) => bool =
+    "queryCommandSupported";
+  [@mel.send]
+  external queryCommandValue: (string, [@mel.this] t_htmlDocument) => string =
+    "queryCommandValue";
+  [@mel.send]
+  external write: (string, [@mel.this] t_htmlDocument) => unit = "write";
+  [@mel.send]
+  external writeln: (string, [@mel.this] t_htmlDocument) => unit = "writeln";
 };
 
 type t = Dom.htmlDocument;

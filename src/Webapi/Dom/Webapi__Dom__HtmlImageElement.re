@@ -34,7 +34,7 @@ let setCrossOrigin = (self, value) =>
 [@mel.get] external decoding: t => string = "decoding";
 [@mel.set] external setDecoding: (t, string) => unit = "decoding";
 
-[@mel.send.pipe: t] external decode: Js.Promise.t(unit) = "decode";
+[@mel.send] external decode: ([@mel.this] t) => Js.Promise.t(unit) = "decode";
 
 include Webapi__Dom__Node.Impl({
   type nonrec t = t;

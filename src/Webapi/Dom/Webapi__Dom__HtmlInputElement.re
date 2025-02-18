@@ -162,7 +162,8 @@ module Impl = (T: {
   [@mel.get]
   external valueAsNumber: t_htmlInputElement => float = "valueAsNumber";
 
-  [@mel.send.pipe: t_htmlInputElement] external select: unit = "select";
+  [@mel.send]
+  external select: ([@mel.this] t_htmlInputElement) => unit = "select";
 
   module SelectionDirection = {
     type t =
@@ -177,10 +178,13 @@ module Impl = (T: {
       | None => "none";
   };
 
-  [@mel.send.pipe: t_htmlInputElement]
-  external setSelectionRange: (int, int) => unit = "setSelectionRange";
-  [@mel.send.pipe: t_htmlInputElement]
-  external setSelectionRangeWithDirection_: (int, int, string) => unit =
+  [@mel.send]
+  external setSelectionRange:
+    (int, int, [@mel.this] t_htmlInputElement) => unit =
+    "setSelectionRange";
+  [@mel.send]
+  external setSelectionRangeWithDirection_:
+    (int, int, string, [@mel.this] t_htmlInputElement) => unit =
     "setSelectionRange";
   let setSelectionRangeWithDirection =
       (selectionStart, selectionEnd, selectionDirection, element) =>
@@ -206,14 +210,17 @@ module Impl = (T: {
       | Preserve => "preserve";
   };
 
-  [@mel.send.pipe: t_htmlInputElement]
-  external setRangeTextWithinSelection: string => unit = "setRangeText";
-  [@mel.send.pipe: t_htmlInputElement]
-  external setRangeTextWithinInterval: (string, int, int) => unit =
+  [@mel.send]
+  external setRangeTextWithinSelection:
+    (string, [@mel.this] t_htmlInputElement) => unit =
     "setRangeText";
-  [@mel.send.pipe: t_htmlInputElement]
+  [@mel.send]
+  external setRangeTextWithinInterval:
+    (string, int, int, [@mel.this] t_htmlInputElement) => unit =
+    "setRangeText";
+  [@mel.send]
   external setRangeTextWithinIntervalWithSelectionMode_:
-    (string, int, int, string) => unit =
+    (string, int, int, string, [@mel.this] t_htmlInputElement) => unit =
     "setRangeText";
   let setRangeTextWithinIntervalWithSelectionMode =
       (text, selectionStart, selectionEnd, selectionMode, element) =>
@@ -225,19 +232,25 @@ module Impl = (T: {
          selectionMode |> SelectionMode.toString,
        );
 
-  [@mel.send.pipe: t_htmlInputElement]
-  external setCustomValidity: string => unit = "setCustomValidity";
-  [@mel.send.pipe: t_htmlInputElement]
-  external checkValidity: bool = "checkValidity";
-  [@mel.send.pipe: t_htmlInputElement]
-  external reportValidity: bool = "reportValidity";
-  [@mel.send.pipe: t_htmlInputElement]
-  external stepDownBy: int => unit = "stepDown";
-  [@mel.send.pipe: t_htmlInputElement]
-  external stepDownByOne: unit = "stepDown";
-  [@mel.send.pipe: t_htmlInputElement]
-  external stepUpBy: int => unit = "stepUp";
-  [@mel.send.pipe: t_htmlInputElement] external stepUpByOne: unit = "stepUp";
+  [@mel.send]
+  external setCustomValidity: (string, [@mel.this] t_htmlInputElement) => unit =
+    "setCustomValidity";
+  [@mel.send]
+  external checkValidity: ([@mel.this] t_htmlInputElement) => bool =
+    "checkValidity";
+  [@mel.send]
+  external reportValidity: ([@mel.this] t_htmlInputElement) => bool =
+    "reportValidity";
+  [@mel.send]
+  external stepDownBy: (int, [@mel.this] t_htmlInputElement) => unit =
+    "stepDown";
+  [@mel.send]
+  external stepDownByOne: ([@mel.this] t_htmlInputElement) => unit =
+    "stepDown";
+  [@mel.send]
+  external stepUpBy: (int, [@mel.this] t_htmlInputElement) => unit = "stepUp";
+  [@mel.send]
+  external stepUpByOne: ([@mel.this] t_htmlInputElement) => unit = "stepUp";
 };
 
 type t = Dom.htmlInputElement;

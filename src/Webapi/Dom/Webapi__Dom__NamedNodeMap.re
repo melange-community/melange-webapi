@@ -2,20 +2,24 @@ type t = Dom.namedNodeMap;
 
 [@mel.get] external length: t => int = "length";
 
-[@mel.send.pipe: t] [@mel.return nullable]
-external item: int => option(Dom.attr) = "item";
-[@mel.send.pipe: t] [@mel.return nullable]
-external getNamedItem: string => option(Dom.attr) = "getNamedItem";
-[@mel.send.pipe: t] [@mel.return nullable]
-external getNamedItemNS: (string, string) => option(Dom.attr) =
+[@mel.send] [@mel.return nullable]
+external item: (int, [@mel.this] t) => option(Dom.attr) = "item";
+[@mel.send] [@mel.return nullable]
+external getNamedItem: (string, [@mel.this] t) => option(Dom.attr) =
+  "getNamedItem";
+[@mel.send] [@mel.return nullable]
+external getNamedItemNS: (string, string, [@mel.this] t) => option(Dom.attr) =
   "getNamedItemNS";
-[@mel.send.pipe: t] external setNamedItem: Dom.attr => unit = "setNamedItem";
-[@mel.send.pipe: t]
-external setNamedItemNS: Dom.attr => unit = "setNamedItemNS";
-[@mel.send.pipe: t]
-external removeNamedItem: string => Dom.attr = "removeNamedItem";
-[@mel.send.pipe: t]
-external removeNamedItemNS: (string, string) => Dom.attr = "removeNamedItemNS";
+[@mel.send]
+external setNamedItem: (Dom.attr, [@mel.this] t) => unit = "setNamedItem";
+[@mel.send]
+external setNamedItemNS: (Dom.attr, [@mel.this] t) => unit = "setNamedItemNS";
+[@mel.send]
+external removeNamedItem: (string, [@mel.this] t) => Dom.attr =
+  "removeNamedItem";
+[@mel.send]
+external removeNamedItemNS: (string, string, [@mel.this] t) => Dom.attr =
+  "removeNamedItemNS";
 
 [@mel.scope ("Array", "prototype", "slice")]
 external toArray: t => array(Dom.attr) = "call";

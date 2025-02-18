@@ -23,9 +23,10 @@ type t = Dom.location;
 [@mel.set] external setPassword: (t, string) => unit = "password";
 [@mel.get] external origin: t => string = "origin";
 
-[@mel.send.pipe: t] external assign: string => unit = "assign";
-[@mel.send.pipe: t] external reload: unit = "reload";
-[@mel.send.pipe: t]
-external reloadWithForce: ([@mel.as {json|true|json}] _) => unit = "reload";
-[@mel.send.pipe: t] external replace: string => unit = "replace";
-[@mel.send.pipe: t] external toString: string = "toString";
+[@mel.send] external assign: (string, [@mel.this] t) => unit = "assign";
+[@mel.send] external reload: ([@mel.this] t) => unit = "reload";
+[@mel.send]
+external reloadWithForce: ([@mel.as {json|true|json}] _, [@mel.this] t) => unit =
+  "reload";
+[@mel.send] external replace: (string, [@mel.this] t) => unit = "replace";
+[@mel.send] external toString: ([@mel.this] t) => string = "toString";

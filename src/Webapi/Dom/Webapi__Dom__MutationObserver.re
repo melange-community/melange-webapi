@@ -4,8 +4,10 @@ type t = Dom.mutationObserver;
 external make: ((array(Dom.mutationRecord), t) => unit) => t =
   "MutationObserver";
 
-[@mel.send.pipe: t]
-external observe: (Dom.node_like('a), Js.t({..})) => unit = "observe";
-[@mel.send.pipe: t] external disconnect: unit = "disconnect";
-[@mel.send.pipe: t]
-external takeRecords: array(Dom.mutationRecord) = "takeRecords";
+[@mel.send]
+external observe: (Dom.node_like('a), Js.t({..}), [@mel.this] t) => unit =
+  "observe";
+[@mel.send] external disconnect: ([@mel.this] t) => unit = "disconnect";
+[@mel.send]
+external takeRecords: ([@mel.this] t) => array(Dom.mutationRecord) =
+  "takeRecords";

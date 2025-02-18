@@ -1,13 +1,19 @@
 type t = Dom.domImplementation;
 
-[@mel.send.pipe: t]
+[@mel.send]
 external createDocumentType:
-  (~qualifiedName: string, ~publicId: string, ~systemId: string) =>
+  (
+    ~qualifiedName: string,
+    ~publicId: string,
+    ~systemId: string,
+    [@mel.this] t
+  ) =>
   Dom.documentType =
   "createDocumentType";
-[@mel.send.pipe: t]
+[@mel.send]
 external createDocument:
-  (Js.null(string), string, Js.null(Dom.documentType)) => Dom.xmlDocument =
+  (Js.null(string), string, Js.null(Dom.documentType), [@mel.this] t) =>
+  Dom.xmlDocument =
   "createDocument";
 let createDocument =
     (
@@ -20,9 +26,11 @@ let createDocument =
     qualifiedName,
     Js.Null.fromOption(docType),
   );
-[@mel.send.pipe: t]
-external createHTMLDocument: Dom.htmlDocument = "createHTMLDocument";
-[@mel.send.pipe: t]
-external createHTMLDocumentWithTitle: string => Dom.htmlDocument =
+[@mel.send]
+external createHTMLDocument: ([@mel.this] t) => Dom.htmlDocument =
   "createHTMLDocument";
-[@mel.send.pipe: t] external hasFeature: bool = "hasFeature"; /* useless; always returns true (this is exact wording from the actual spec) */
+[@mel.send]
+external createHTMLDocumentWithTitle:
+  (string, [@mel.this] t) => Dom.htmlDocument =
+  "createHTMLDocument";
+[@mel.send] external hasFeature: ([@mel.this] t) => bool = "hasFeature"; /* useless; always returns true (this is exact wording from the actual spec) */

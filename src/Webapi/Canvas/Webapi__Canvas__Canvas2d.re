@@ -78,15 +78,17 @@ type style(_) =
   | Pattern: style(pattern);
 
 /* 2d Canvas API, following https://simon.html5.org/dump/html5-canvas-cheat-sheet.html */
-[@mel.send.pipe: t] external save: unit = "save";
-[@mel.send.pipe: t] external restore: unit = "restore";
+[@mel.send] external save: ([@mel.this] t) => unit = "save";
+[@mel.send] external restore: ([@mel.this] t) => unit = "restore";
 
 /* Transformation */
-[@mel.send.pipe: t] external scale: (~x: float, ~y: float) => unit = "scale";
-[@mel.send.pipe: t] external rotate: float => unit = "rotate";
-[@mel.send.pipe: t]
-external translate: (~x: float, ~y: float) => unit = "translate";
-[@mel.send.pipe: t]
+[@mel.send]
+external scale: (~x: float, ~y: float, [@mel.this] t) => unit = "scale";
+[@mel.send] external rotate: (float, [@mel.this] t) => unit = "rotate";
+[@mel.send]
+external translate: (~x: float, ~y: float, [@mel.this] t) => unit =
+  "translate";
+[@mel.send]
 external transform:
   (
     ~m11: float,
@@ -94,11 +96,12 @@ external transform:
     ~m21: float,
     ~m22: float,
     ~dx: float,
-    ~dy: float
+    ~dy: float,
+    [@mel.this] t
   ) =>
   unit =
   "transform";
-[@mel.send.pipe: t]
+[@mel.send]
 external setTransform:
   (
     ~m11: float,
@@ -106,7 +109,8 @@ external setTransform:
     ~m21: float,
     ~m22: float,
     ~dx: float,
-    ~dy: float
+    ~dy: float,
+    [@mel.this] t
   ) =>
   unit =
   "setTransform";
@@ -177,17 +181,26 @@ let strokeStyle = (ctx: t) => ctx |> strokeStyle |> reifyStyle;
 [@mel.set] external shadowColor: (t, string) => unit = "shadowColor";
 
 /* Gradients */
-[@mel.send.pipe: t]
+[@mel.send]
 external createLinearGradient:
-  (~x0: float, ~y0: float, ~x1: float, ~y1: float) => gradient =
+  (~x0: float, ~y0: float, ~x1: float, ~y1: float, [@mel.this] t) => gradient =
   "createLinearGradient";
-[@mel.send.pipe: t]
+[@mel.send]
 external createRadialGradient:
-  (~x0: float, ~y0: float, ~x1: float, ~y1: float, ~r0: float, ~r1: float) =>
+  (
+    ~x0: float,
+    ~y0: float,
+    ~x1: float,
+    ~y1: float,
+    ~r0: float,
+    ~r1: float,
+    [@mel.this] t
+  ) =>
   gradient =
   "createRadialGradient";
-[@mel.send.pipe: gradient]
-external addColorStop: (float, string) => unit = "addColorStop";
+[@mel.send]
+external addColorStop: (float, string, [@mel.this] gradient) => unit =
+  "addColorStop";
 
 external createPattern:
   (
@@ -204,18 +217,20 @@ external createPattern:
   "createPattern";
 
 /* Paths */
-[@mel.send.pipe: t] external beginPath: unit = "beginPath";
-[@mel.send.pipe: t] external closePath: unit = "closePath";
-[@mel.send.pipe: t] external fill: unit = "fill";
-[@mel.send.pipe: t] external stroke: unit = "stroke";
-[@mel.send.pipe: t] external clip: unit = "clip";
-[@mel.send.pipe: t] external moveTo: (~x: float, ~y: float) => unit = "moveTo";
-[@mel.send.pipe: t] external lineTo: (~x: float, ~y: float) => unit = "lineTo";
-[@mel.send.pipe: t]
+[@mel.send] external beginPath: ([@mel.this] t) => unit = "beginPath";
+[@mel.send] external closePath: ([@mel.this] t) => unit = "closePath";
+[@mel.send] external fill: ([@mel.this] t) => unit = "fill";
+[@mel.send] external stroke: ([@mel.this] t) => unit = "stroke";
+[@mel.send] external clip: ([@mel.this] t) => unit = "clip";
+[@mel.send]
+external moveTo: (~x: float, ~y: float, [@mel.this] t) => unit = "moveTo";
+[@mel.send]
+external lineTo: (~x: float, ~y: float, [@mel.this] t) => unit = "lineTo";
+[@mel.send]
 external quadraticCurveTo:
-  (~cp1x: float, ~cp1y: float, ~x: float, ~y: float) => unit =
+  (~cp1x: float, ~cp1y: float, ~x: float, ~y: float, [@mel.this] t) => unit =
   "quadraticCurveTo";
-[@mel.send.pipe: t]
+[@mel.send]
 external bezierCurveTo:
   (
     ~cp1x: float,
@@ -223,15 +238,17 @@ external bezierCurveTo:
     ~cp2x: float,
     ~cp2y: float,
     ~x: float,
-    ~y: float
+    ~y: float,
+    [@mel.this] t
   ) =>
   unit =
   "bezierCurveTo";
-[@mel.send.pipe: t]
+[@mel.send]
 external arcTo:
-  (~x1: float, ~y1: float, ~x2: float, ~y2: float, ~r: float) => unit =
+  (~x1: float, ~y1: float, ~x2: float, ~y2: float, ~r: float, [@mel.this] t) =>
+  unit =
   "arcTo";
-[@mel.send.pipe: t]
+[@mel.send]
 external arc:
   (
     ~x: float,
@@ -239,38 +256,47 @@ external arc:
     ~r: float,
     ~startAngle: float,
     ~endAngle: float,
-    ~anticw: bool
+    ~anticw: bool,
+    [@mel.this] t
   ) =>
   unit =
   "arc";
-[@mel.send.pipe: t]
-external rect: (~x: float, ~y: float, ~w: float, ~h: float) => unit = "rect";
-[@mel.send.pipe: t]
-external isPointInPath: (~x: float, ~y: float) => bool = "isPointInPath";
+[@mel.send]
+external rect:
+  (~x: float, ~y: float, ~w: float, ~h: float, [@mel.this] t) => unit =
+  "rect";
+[@mel.send]
+external isPointInPath: (~x: float, ~y: float, [@mel.this] t) => bool =
+  "isPointInPath";
 
 /* Text */
 [@mel.set] external font: (t, string) => unit = "font";
 [@mel.set] external textAlign: (t, string) => unit = "textAlign";
 [@mel.set] external textBaseline: (t, string) => unit = "textBaseline";
-[@mel.send.pipe: t]
-external fillText: (string, ~x: float, ~y: float, ~maxWidth: float=?) => unit =
+[@mel.send]
+external fillText:
+  (string, ~x: float, ~y: float, ~maxWidth: float=?, [@mel.this] t) => unit =
   "fillText";
-[@mel.send.pipe: t]
-external strokeText: (string, ~x: float, ~y: float, ~maxWidth: float=?) => unit =
+[@mel.send]
+external strokeText:
+  (string, ~x: float, ~y: float, ~maxWidth: float=?, [@mel.this] t) => unit =
   "strokeText";
-[@mel.send.pipe: t]
-external measureText: string => measureText = "measureText";
+[@mel.send]
+external measureText: (string, [@mel.this] t) => measureText = "measureText";
 [@mel.get] external width: measureText => float = "width";
 
 /* Rectangles */
-[@mel.send.pipe: t]
-external fillRect: (~x: float, ~y: float, ~w: float, ~h: float) => unit =
+[@mel.send]
+external fillRect:
+  (~x: float, ~y: float, ~w: float, ~h: float, [@mel.this] t) => unit =
   "fillRect";
-[@mel.send.pipe: t]
-external strokeRect: (~x: float, ~y: float, ~w: float, ~h: float) => unit =
+[@mel.send]
+external strokeRect:
+  (~x: float, ~y: float, ~w: float, ~h: float, [@mel.this] t) => unit =
   "strokeRect";
-[@mel.send.pipe: t]
-external clearRect: (~x: float, ~y: float, ~w: float, ~h: float) => unit =
+[@mel.send]
+external clearRect:
+  (~x: float, ~y: float, ~w: float, ~h: float, [@mel.this] t) => unit =
   "clearRect";
 
 [@mel.send]

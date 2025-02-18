@@ -2,26 +2,28 @@ type t = Dom.domTokenList;
 
 [@mel.get] external length: t => int = "length";
 
-[@mel.send.pipe: t] [@mel.return nullable]
-external item: int => option(string) = "item";
-[@mel.send.pipe: t] external add: string => unit = "add";
-[@mel.send.pipe: t] [@mel.variadic]
-external addMany: array(string) => unit = "add";
-[@mel.send.pipe: t] external contains: string => bool = "contains";
+[@mel.send] [@mel.return nullable]
+external item: (int, [@mel.this] t) => option(string) = "item";
+[@mel.send] external add: (string, [@mel.this] t) => unit = "add";
+[@mel.send] [@mel.variadic]
+external addMany: (array(string), [@mel.this] t) => unit = "add";
+[@mel.send] external contains: (string, [@mel.this] t) => bool = "contains";
 /* entries: iterator API, should have language support */
-[@mel.send.pipe: t]
-external forEach: ((string, int) => unit) => unit = "forEach";
+[@mel.send]
+external forEach: ((string, int) => unit, [@mel.this] t) => unit = "forEach";
 /* keys: iterator API, should have language support */
-[@mel.send.pipe: t] external remove: string => unit = "remove";
-[@mel.send.pipe: t] [@mel.variadic]
-external removeMany: array(string) => unit = "remove";
-[@mel.send.pipe: t] external replace: (string, string) => unit = "replace"; /* experimental */
-[@mel.send.pipe: t] external supports: string => bool = "supports"; /* experimental, Content Management Level 1 */
-[@mel.send.pipe: t] external toggle: string => bool = "toggle";
-[@mel.send.pipe: t]
-external toggleForced: (string, [@mel.as {json|true|json}] _) => bool =
+[@mel.send] external remove: (string, [@mel.this] t) => unit = "remove";
+[@mel.send] [@mel.variadic]
+external removeMany: (array(string), [@mel.this] t) => unit = "remove";
+[@mel.send]
+external replace: (string, string, [@mel.this] t) => unit = "replace"; /* experimental */
+[@mel.send] external supports: (string, [@mel.this] t) => bool = "supports"; /* experimental, Content Management Level 1 */
+[@mel.send] external toggle: (string, [@mel.this] t) => bool = "toggle";
+[@mel.send]
+external toggleForced:
+  (string, [@mel.as {json|true|json}] _, [@mel.this] t) => bool =
   "toggle";
-[@mel.send.pipe: t] external toString: string = "toString";
+[@mel.send] external toString: ([@mel.this] t) => string = "toString";
 /* values: iterator API, should have language support */
 
 [@mel.get] external value: t => string = "value"; /* experimental, from being merged with domSettableTokenList */
