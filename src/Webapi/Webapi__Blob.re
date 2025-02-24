@@ -7,8 +7,10 @@ module Impl = (T: {
 
   [@mel.get] external size: T.t => float = "size";
 
-  [@mel.send.pipe: T.t]
-  external slice: (~start: int=?, ~end_: int=?, ~contentType: string=?) => T.t =
+  [@mel.send]
+  external slice:
+    (~start: int=?, ~end_: int=?, ~contentType: string=?, [@mel.this] T.t) =>
+    T.t =
     "slice";
 
   /** @since 0.19.0 */

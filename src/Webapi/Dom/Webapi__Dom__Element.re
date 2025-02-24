@@ -54,48 +54,69 @@ module Impl = (T: {
   [@mel.set] external setSlot: (T.t, string) => unit = "slot"; /* experimental */
   [@mel.get] external tagName: T.t => string = "tagName";
 
-  [@mel.send.pipe: T.t]
-  external attachShadow: {. "mode": string} => Dom.shadowRoot =
+  [@mel.send]
+  external attachShadow:
+    ({. "mode": string}, [@mel.this] T.t) => Dom.shadowRoot =
     "attachShadow"; /* experimental */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external attachShadowOpen:
-    ([@mel.as {json|{ "mode": "open" }|json}] _) => Dom.shadowRoot =
+    ([@mel.as {json|{ "mode": "open" }|json}] _, [@mel.this] T.t) =>
+    Dom.shadowRoot =
     "attachShadow"; /* experimental */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external attachShadowClosed:
-    ([@mel.as {json|{ "mode": "closed" }|json}] _) => Dom.shadowRoot =
+    ([@mel.as {json|{ "mode": "closed" }|json}] _, [@mel.this] T.t) =>
+    Dom.shadowRoot =
     "attachShadow"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external animate: (Js.t({..}), Js.t({..})) => Dom.animation = "animate"; /* experimental */
-  [@mel.send.pipe: T.t] [@mel.return nullable]
-  external closest: string => option(Dom.element) = "closest"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external createShadowRoot: Dom.shadowRoot = "createShadowRoot"; /* experimental AND deprecated (?!) */
-  [@mel.send.pipe: T.t] [@mel.return nullable]
-  external getAttribute: string => option(string) = "getAttribute";
-  [@mel.send.pipe: T.t] [@mel.return nullable]
-  external getAttributeNS: (string, string) => option(string) =
+  [@mel.send]
+  external animate:
+    (Js.t({..}), Js.t({..}), [@mel.this] T.t) => Dom.animation =
+    "animate"; /* experimental */
+  [@mel.send] [@mel.return nullable]
+  external closest: (string, [@mel.this] T.t) => option(Dom.element) =
+    "closest"; /* experimental */
+  [@mel.send]
+  external createShadowRoot: ([@mel.this] T.t) => Dom.shadowRoot =
+    "createShadowRoot"; /* experimental AND deprecated (?!) */
+  [@mel.send] [@mel.return nullable]
+  external getAttribute: (string, [@mel.this] T.t) => option(string) =
+    "getAttribute";
+  [@mel.send] [@mel.return nullable]
+  external getAttributeNS: (string, string, [@mel.this] T.t) => option(string) =
     "getAttributeNS";
-  [@mel.send.pipe: T.t]
-  external getBoundingClientRect: Dom.domRect = "getBoundingClientRect";
-  [@mel.send.pipe: T.t]
-  external getClientRects: array(Dom.domRect) = "getClientRects";
-  [@mel.send.pipe: T.t]
-  external getElementsByClassName: string => Dom.htmlCollection =
+  [@mel.send]
+  external getBoundingClientRect: ([@mel.this] T.t) => Dom.domRect =
+    "getBoundingClientRect";
+  [@mel.send]
+  external getClientRects: ([@mel.this] T.t) => array(Dom.domRect) =
+    "getClientRects";
+  [@mel.send]
+  external getElementsByClassName:
+    (string, [@mel.this] T.t) => Dom.htmlCollection =
     "getElementsByClassName";
-  [@mel.send.pipe: T.t]
-  external getElementsByTagName: string => Dom.htmlCollection =
+  [@mel.send]
+  external getElementsByTagName:
+    (string, [@mel.this] T.t) => Dom.htmlCollection =
     "getElementsByTagName";
-  [@mel.send.pipe: T.t]
-  external getElementsByTagNameNS: (string, string) => Dom.htmlCollection =
+  [@mel.send]
+  external getElementsByTagNameNS:
+    (string, string, [@mel.this] T.t) => Dom.htmlCollection =
     "getElementsByTagNameNS";
-  [@mel.send.pipe: T.t] external hasAttribute: string => bool = "hasAttribute";
-  [@mel.send.pipe: T.t]
-  external hasAttributeNS: (string, string) => bool = "hasAttributeNS";
-  [@mel.send.pipe: T.t] external hasAttributes: bool = "hasAttributes";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
+  external hasAttribute: (string, [@mel.this] T.t) => bool = "hasAttribute";
+  [@mel.send]
+  external hasAttributeNS: (string, string, [@mel.this] T.t) => bool =
+    "hasAttributeNS";
+  [@mel.send]
+  external hasAttributes: ([@mel.this] T.t) => bool = "hasAttributes";
+  [@mel.send]
   external insertAdjacentElement:
-    (string /* insertPosition enum */, Dom.element_like('a)) => unit =
+    (
+      string /* insertPosition enum */,
+      Dom.element_like('a),
+      [@mel.this] T.t
+    ) =>
+    unit =
     "insertAdjacentElement"; /* experimental, but widely supported */
   let insertAdjacentElement:
     (Webapi__Dom__Types.insertPosition, Dom.element_like('a), T.t) => unit =
@@ -105,9 +126,9 @@ module Impl = (T: {
         element,
         self,
       );
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external insertAdjacentHTML:
-    (string /* insertPosition enum */, string) => unit =
+    (string /* insertPosition enum */, string, [@mel.this] T.t) => unit =
     "insertAdjacentHTML"; /* experimental, but widely supported */
   let insertAdjacentHTML:
     (Webapi__Dom__Types.insertPosition, string, T.t) => unit =
@@ -117,9 +138,9 @@ module Impl = (T: {
         text,
         self,
       );
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external insertAdjacentText:
-    (string /* insertPosition enum */, string) => unit =
+    (string /* insertPosition enum */, string, [@mel.this] T.t) => unit =
     "insertAdjacentText"; /* experimental, but widely supported */
   let insertAdjacentText:
     (Webapi__Dom__Types.insertPosition, string, T.t) => unit =
@@ -129,58 +150,78 @@ module Impl = (T: {
         text,
         self,
       );
-  [@mel.send.pipe: T.t] external matches: string => bool = "matches"; /* experimental, but widely supported */
-  [@mel.send.pipe: T.t]
-  external releasePointerCapture: Dom.eventPointerId => unit =
+  [@mel.send] external matches: (string, [@mel.this] T.t) => bool = "matches"; /* experimental, but widely supported */
+  [@mel.send]
+  external releasePointerCapture: (Dom.eventPointerId, [@mel.this] T.t) => unit =
     "releasePointerCapture";
-  [@mel.send.pipe: T.t]
-  external removeAttribute: string => unit = "removeAttribute";
-  [@mel.send.pipe: T.t]
-  external removeAttributeNS: (string, string) => unit = "removeAttributeNS";
-  [@mel.send.pipe: T.t] external requestFullscreen: unit = "requestFullscreen"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external requestPointerLock: unit = "requestPointerLock"; /* experimental */
-  [@mel.send.pipe: T.t] external scrollIntoView: unit = "scrollIntoView"; /* experimental, but widely supported */
-  [@mel.send.pipe: T.t]
-  external scrollIntoViewNoAlignToTop: ([@mel.as {json|true|json}] _) => unit =
+  [@mel.send]
+  external removeAttribute: (string, [@mel.this] T.t) => unit =
+    "removeAttribute";
+  [@mel.send]
+  external removeAttributeNS: (string, string, [@mel.this] T.t) => unit =
+    "removeAttributeNS";
+  [@mel.send]
+  external requestFullscreen: ([@mel.this] T.t) => unit = "requestFullscreen"; /* experimental */
+  [@mel.send]
+  external requestPointerLock: ([@mel.this] T.t) => unit =
+    "requestPointerLock"; /* experimental */
+  [@mel.send]
+  external scrollIntoView: ([@mel.this] T.t) => unit = "scrollIntoView"; /* experimental, but widely supported */
+  [@mel.send]
+  external scrollIntoViewNoAlignToTop:
+    ([@mel.as {json|true|json}] _, [@mel.this] T.t) => unit =
     "scrollIntoView"; /* experimental, but widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external scrollIntoViewWithOptions:
-    {
-      .
-      "behavior": string,
-      "block": string,
-    } =>
+    (
+      {
+        .
+        "behavior": string,
+        "block": string,
+      },
+      [@mel.this] T.t
+    ) =>
     unit =
     "scrollIntoView"; /* experimental */
-  [@mel.send.pipe: T.t] external scrollBy: (float, float) => unit = "scrollBy";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
+  external scrollBy: (float, float, [@mel.this] T.t) => unit = "scrollBy";
+  [@mel.send]
   external scrollByWithOptions:
-    {
-      .
-      "top": float,
-      "left": float,
-      "behavior": string,
-    } =>
+    (
+      {
+        .
+        "top": float,
+        "left": float,
+        "behavior": string,
+      },
+      [@mel.this] T.t
+    ) =>
     unit =
     "scrollBy";
-  [@mel.send.pipe: T.t] external scrollTo: (float, float) => unit = "scrollTo";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
+  external scrollTo: (float, float, [@mel.this] T.t) => unit = "scrollTo";
+  [@mel.send]
   external scrollToWithOptions:
-    {
-      .
-      "top": float,
-      "left": float,
-      "behavior": string,
-    } =>
+    (
+      {
+        .
+        "top": float,
+        "left": float,
+        "behavior": string,
+      },
+      [@mel.this] T.t
+    ) =>
     unit =
     "scrollTo";
-  [@mel.send.pipe: T.t]
-  external setAttribute: (string, string) => unit = "setAttribute";
-  [@mel.send.pipe: T.t]
-  external setAttributeNS: (string, string, string) => unit = "setAttributeNS";
-  [@mel.send.pipe: T.t]
-  external setPointerCapture: Dom.eventPointerId => unit = "setPointerCapture";
+  [@mel.send]
+  external setAttribute: (string, string, [@mel.this] T.t) => unit =
+    "setAttribute";
+  [@mel.send]
+  external setAttributeNS: (string, string, string, [@mel.this] T.t) => unit =
+    "setAttributeNS";
+  [@mel.send]
+  external setPointerCapture: (Dom.eventPointerId, [@mel.this] T.t) => unit =
+    "setPointerCapture";
 
   /* GlobalEventHandlers interface */
   /* Not sure this should be exposed, since EventTarget seems like a better API */

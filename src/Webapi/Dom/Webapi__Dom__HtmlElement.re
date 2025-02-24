@@ -95,15 +95,20 @@ module Impl = (T: {
   [@mel.set] external setTitle: (t_htmlElement, string) => unit = "title";
   [@mel.get] external translate: t_htmlElement => bool = "translate"; /* experimental */
   [@mel.set] external setTranslate: (t_htmlElement, bool) => unit = "translate" /*let setTranslate : t_htmlElement => bool => unit = fun self value => setTranslate self (Js.Boolean.to_js_boolean value);*/; /* experimental */ /* temproarily removed to reduce codegen size */
-  [@mel.send.pipe: t_htmlElement] external blur: unit = "blur";
-  [@mel.send.pipe: t_htmlElement] external click: unit = "click";
-  [@mel.send.pipe: t_htmlElement] external focus: unit = "focus";
-  [@mel.send.pipe: t_htmlElement]
+  [@mel.send] external blur: ([@mel.this] t_htmlElement) => unit = "blur";
+  [@mel.send] external click: ([@mel.this] t_htmlElement) => unit = "click";
+  [@mel.send] external focus: ([@mel.this] t_htmlElement) => unit = "focus";
+  [@mel.send]
   external focusPreventScroll:
-    ([@mel.as {json|{ "preventScroll": true }|json}] _) => unit =
+    (
+      [@mel.as {json|{ "preventScroll": true }|json}] _,
+      [@mel.this] t_htmlElement
+    ) =>
+    unit =
     "focus";
-  [@mel.send.pipe: t_htmlElement]
-  external forceSpellCheck: unit = "forceSpellCheck"; /* experimental */
+  [@mel.send]
+  external forceSpellCheck: ([@mel.this] t_htmlElement) => unit =
+    "forceSpellCheck"; /* experimental */
 
   /* TODO: element-spcific, should be pulled out */
   [@mel.get] external value: t_htmlElement => string = "value"; /* HTMLInputElement */

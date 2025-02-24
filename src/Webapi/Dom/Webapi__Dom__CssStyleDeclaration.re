@@ -6,16 +6,21 @@ type cssRule; /* TODO: Move to Webapi__Dom */
 [@mel.get] external length: t => int = "length";
 [@mel.get] external parentRule: t => cssRule = "parentRule";
 
-[@mel.send.pipe: t]
-external getPropertyPriority: string => string = "getPropertyPriority";
-[@mel.send.pipe: t]
-external getPropertyValue: string => string = "getPropertyValue";
-[@mel.send.pipe: t] external item: int => string = "item";
-[@mel.send.pipe: t]
-external removeProperty: string => string = "removeProperty";
-[@mel.send.pipe: t]
-external setProperty: (string, string, string) => unit = "setProperty" /*[@@mel.send.pipe : t] external setPropertyValue : (string, string) => unit = "setPropertyValue";*/; /* not mentioned by MDN and not implemented by chrome, but in the CSSOM spec:  https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface */
+[@mel.send]
+external getPropertyPriority: (string, [@mel.this] t) => string =
+  "getPropertyPriority";
+[@mel.send]
+external getPropertyValue: (string, [@mel.this] t) => string =
+  "getPropertyValue";
+[@mel.send] external item: (int, [@mel.this] t) => string = "item";
+[@mel.send]
+external removeProperty: (string, [@mel.this] t) => string = "removeProperty";
+[@mel.send]
+external setProperty: (string, string, string, [@mel.this] t) => unit =
+  "setProperty" /* [@mel.send] external setPropertyValue : (string, string) => ([@mel.this] t) => unit = "setPropertyValue";*/; /* not mentioned by MDN and not implemented by chrome, but in the CSSOM spec:  https://drafts.csswg.org/cssom/#the-cssstyledeclaration-interface */
+
 /* CSS2Properties */
+
 [@mel.get] external azimuth: t => string = "azimuth";
 [@mel.get] external background: t => string = "background";
 [@mel.get] external backgroundAttachment: t => string = "backgroundAttachment";

@@ -9,29 +9,36 @@ external focusNode: t => option(Dom.node) = "focusNode";
 [@mel.get] external isCollapsed: t => bool = "isCollapsed";
 [@mel.get] external rangeCount: t => int = "rangeCount";
 
-[@mel.send.pipe: t] external getRangeAt: int => Dom.range = "getRangeAt";
-[@mel.send.pipe: t]
-external collapse: (Dom.node_like(_), int) => unit = "collapse";
-[@mel.send.pipe: t]
-external extend: (Dom.node_like(_), int) => unit = "extend";
-[@mel.send.pipe: t] external collapseToStart: unit = "collapseToStart";
-[@mel.send.pipe: t] external collapseToEnd: unit = "collapseToEnd";
-[@mel.send.pipe: t]
-external selectAllChildren: Dom.node_like(_) => unit = "selectAllChildren";
-[@mel.send.pipe: t]
+[@mel.send]
+external getRangeAt: (int, [@mel.this] t) => Dom.range = "getRangeAt";
+[@mel.send]
+external collapse: (Dom.node_like(_), int, [@mel.this] t) => unit =
+  "collapse";
+[@mel.send]
+external extend: (Dom.node_like(_), int, [@mel.this] t) => unit = "extend";
+[@mel.send]
+external collapseToStart: ([@mel.this] t) => unit = "collapseToStart";
+[@mel.send] external collapseToEnd: ([@mel.this] t) => unit = "collapseToEnd";
+[@mel.send]
+external selectAllChildren: (Dom.node_like(_), [@mel.this] t) => unit =
+  "selectAllChildren";
+[@mel.send]
 external setBaseAndExtent:
-  (Dom.node_like(_), int, Dom.node_like(_), int) => unit =
+  (Dom.node_like(_), int, Dom.node_like(_), int, [@mel.this] t) => unit =
   "setBaseAndExtent";
-[@mel.send.pipe: t] external addRange: Dom.range => unit = "addRange";
-[@mel.send.pipe: t] external removeRange: Dom.range => unit = "removeRange";
-[@mel.send.pipe: t] external removeAllRanges: unit = "removeAllRanges";
-[@mel.send.pipe: t] external deleteFromDocument: unit = "deleteFromDocument";
-[@mel.send.pipe: t] external toString: string = "toString";
-[@mel.send.pipe: t]
+[@mel.send] external addRange: (Dom.range, [@mel.this] t) => unit = "addRange";
+[@mel.send]
+external removeRange: (Dom.range, [@mel.this] t) => unit = "removeRange";
+[@mel.send]
+external removeAllRanges: ([@mel.this] t) => unit = "removeAllRanges";
+[@mel.send]
+external deleteFromDocument: ([@mel.this] t) => unit = "deleteFromDocument";
+[@mel.send] external toString: ([@mel.this] t) => string = "toString";
+[@mel.send]
 external containsNode:
-  (Dom.node_like(_), [@mel.as {json|false|json}] _) => bool =
+  (Dom.node_like(_), [@mel.as {json|false|json}] _, [@mel.this] t) => bool =
   "containsNode";
-[@mel.send.pipe: t]
+[@mel.send]
 external containsNodePartly:
-  (Dom.node_like(_), [@mel.as {json|true|json}] _) => bool =
+  (Dom.node_like(_), [@mel.as {json|true|json}] _, [@mel.this] t) => bool =
   "containsNode";

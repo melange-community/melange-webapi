@@ -12,7 +12,7 @@
 (authors "Cheng Lou <chenglou@users.noreply.github.com>")
 
 (maintainers
- "Javier Ch\195\161varri <javier.chavarri@gmail.com>"
+ "Javier Chávarri <javier.chavarri@gmail.com>"
  "David Sancho <dsnxmoreno@gmail.com>")
 
 (homepage "https://github.com/melange-community/melange-webapi")
@@ -28,7 +28,7 @@
  (depends
   ocaml
   (melange
-   (>= "2.0.0"))
+   (>= "5.0.1"))
   melange-fetch
   (reason
    (>= "3.10"))

@@ -3,10 +3,11 @@ module Impl = (T: {
                }) => {
   external asEventTarget: T.t => Dom.eventTarget = "%identity";
 
-  [@mel.send.pipe: T.t]
-  external addEventListener: (string, Dom.event => unit) => unit =
+  [@mel.send]
+  external addEventListener:
+    (string, Dom.event => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addEventListenerWithOptions:
     (
       string,
@@ -16,18 +17,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addEventListenerUseCapture:
-    (string, Dom.event => unit, [@mel.as {json|true|json}] _) => unit =
+    (
+      string,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
-  external removeEventListener: (string, Dom.event => unit) => unit =
+  [@mel.send]
+  external removeEventListener:
+    (string, Dom.event => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeEventListenerWithOptions:
     (
       string,
@@ -36,26 +45,34 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeEventListenerUseCapture:
-    (string, Dom.event => unit, [@mel.as {json|true|json}] _) => unit =
+    (
+      string,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
-  external dispatchEvent: Dom.event_like('a) => bool = "dispatchEvent";
+  [@mel.send]
+  external dispatchEvent: (Dom.event_like('a), [@mel.this] T.t) => bool =
+    "dispatchEvent";
 
   /**
    *  non-standard event-specific functions
    */
+  [@mel.send]
   /* UI */
-  [@mel.send.pipe: T.t]
   external addLoadEventListener:
-    ([@mel.as "load"] _, Dom.event => unit) => unit =
+    ([@mel.as "load"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addLoadEventListenerWithOptions:
     (
       [@mel.as "load"] _,
@@ -65,20 +82,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addLoadEventListenerUseCapture:
-    ([@mel.as "load"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "load"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeLoadEventListener:
-    ([@mel.as "load"] _, Dom.event => unit) => unit =
+    ([@mel.as "load"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeLoadEventListenerWithOptions:
     (
       [@mel.as "load"] _,
@@ -87,21 +110,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeLoadEventListenerUseCapture:
-    ([@mel.as "load"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "load"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addUnloadEventListener:
-    ([@mel.as "unload"] _, Dom.event => unit) => unit =
+    ([@mel.as "unload"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addUnloadEventListenerWithOptions:
     (
       [@mel.as "unload"] _,
@@ -111,20 +140,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addUnloadEventListenerUseCapture:
-    ([@mel.as "unload"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "unload"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeUnloadEventListener:
-    ([@mel.as "unload"] _, Dom.event => unit) => unit =
+    ([@mel.as "unload"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeUnloadEventListenerWithOptions:
     (
       [@mel.as "unload"] _,
@@ -133,21 +168,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeUnloadEventListenerUseCapture:
-    ([@mel.as "unload"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "unload"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAbortEventListener:
-    ([@mel.as "abort"] _, Dom.event => unit) => unit =
+    ([@mel.as "abort"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAbortEventListenerWithOptions:
     (
       [@mel.as "abort"] _,
@@ -157,20 +198,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAbortEventListenerUseCapture:
-    ([@mel.as "abort"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "abort"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAbortEventListener:
-    ([@mel.as "abort"] _, Dom.event => unit) => unit =
+    ([@mel.as "abort"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAbortEventListenerWithOptions:
     (
       [@mel.as "abort"] _,
@@ -179,21 +226,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAbortEventListenerUseCapture:
-    ([@mel.as "abort"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "abort"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addErrorEventListener:
-    ([@mel.as "error"] _, Dom.event => unit) => unit =
+    ([@mel.as "error"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addErrorEventListenerWithOptions:
     (
       [@mel.as "error"] _,
@@ -203,20 +256,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addErrorEventListenerUseCapture:
-    ([@mel.as "error"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "error"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeErrorEventListener:
-    ([@mel.as "error"] _, Dom.event => unit) => unit =
+    ([@mel.as "error"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeErrorEventListenerWithOptions:
     (
       [@mel.as "error"] _,
@@ -225,21 +284,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeErrorEventListenerUseCapture:
-    ([@mel.as "error"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "error"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addSelectEventListener:
-    ([@mel.as "select"] _, Dom.event => unit) => unit =
+    ([@mel.as "select"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addSelectEventListenerWithOptions:
     (
       [@mel.as "select"] _,
@@ -249,20 +314,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addSelectEventListenerUseCapture:
-    ([@mel.as "select"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "select"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeSelectEventListener:
-    ([@mel.as "select"] _, Dom.event => unit) => unit =
+    ([@mel.as "select"] _, Dom.event => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeSelectEventListenerWithOptions:
     (
       [@mel.as "select"] _,
@@ -271,23 +342,29 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeSelectEventListenerUseCapture:
-    ([@mel.as "select"] _, Dom.event => unit, [@mel.as {json|true|json}] _) =>
+    (
+      [@mel.as "select"] _,
+      Dom.event => unit,
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
+    ) =>
     unit =
     "removeEventListener";
 
   /* Focus */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addBlurEventListener:
-    ([@mel.as "blur"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "blur"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addBlurEventListenerWithOptions:
     (
       [@mel.as "blur"] _,
@@ -297,24 +374,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addBlurEventListenerUseCapture:
     (
       [@mel.as "blur"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeBlurEventListener:
-    ([@mel.as "blur"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "blur"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeBlurEventListenerWithOptions:
     (
       [@mel.as "blur"] _,
@@ -323,25 +402,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeBlurEventListenerUseCapture:
     (
       [@mel.as "blur"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusEventListener:
-    ([@mel.as "focus"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "focus"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusEventListenerWithOptions:
     (
       [@mel.as "focus"] _,
@@ -351,24 +432,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusEventListenerUseCapture:
     (
       [@mel.as "focus"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusEventListener:
-    ([@mel.as "focus"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "focus"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusEventListenerWithOptions:
     (
       [@mel.as "focus"] _,
@@ -377,25 +460,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusEventListenerUseCapture:
     (
       [@mel.as "focus"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusInEventListener:
-    ([@mel.as "focusin"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "focusin"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusInEventListenerWithOptions:
     (
       [@mel.as "focusin"] _,
@@ -405,24 +490,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusInEventListenerUseCapture:
     (
       [@mel.as "focusin"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusInEventListener:
-    ([@mel.as "focusin"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "focusin"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusInEventListenerWithOptions:
     (
       [@mel.as "focusin"] _,
@@ -431,25 +518,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusInEventListenerUseCapture:
     (
       [@mel.as "focusin"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusOutEventListener:
-    ([@mel.as "focusout"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "focusout"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusOutEventListenerWithOptions:
     (
       [@mel.as "focusout"] _,
@@ -459,24 +548,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addFocusOutEventListenerUseCapture:
     (
       [@mel.as "focusout"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusOutEventListener:
-    ([@mel.as "focusout"] _, Dom.focusEvent => unit) => unit =
+    ([@mel.as "focusout"] _, Dom.focusEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusOutEventListenerWithOptions:
     (
       [@mel.as "focusout"] _,
@@ -485,27 +576,29 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeFocusOutEventListenerUseCapture:
     (
       [@mel.as "focusout"] _,
       Dom.focusEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Mouse */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addClickEventListener:
-    ([@mel.as "click"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "click"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addClickEventListenerWithOptions:
     (
       [@mel.as "click"] _,
@@ -515,24 +608,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addClickEventListenerUseCapture:
     (
       [@mel.as "click"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeClickEventListener:
-    ([@mel.as "click"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "click"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeClickEventListenerWithOptions:
     (
       [@mel.as "click"] _,
@@ -541,25 +636,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeClickEventListenerUseCapture:
     (
       [@mel.as "click"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDblClickEventListener:
-    ([@mel.as "dblclick"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "dblclick"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDblClickEventListenerWithOptions:
     (
       [@mel.as "dblclick"] _,
@@ -569,24 +666,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDblClickEventListenerUseCapture:
     (
       [@mel.as "dblclick"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDblClickEventListener:
-    ([@mel.as "dblclick"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "dblclick"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDblClickEventListenerWithOptions:
     (
       [@mel.as "dblclick"] _,
@@ -595,25 +694,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDblClickEventListenerUseCapture:
     (
       [@mel.as "dblclick"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseDownEventListener:
-    ([@mel.as "mousedown"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mousedown"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseDownEventListenerWithOptions:
     (
       [@mel.as "mousedown"] _,
@@ -623,24 +724,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseDownEventListenerUseCapture:
     (
       [@mel.as "mousedown"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseDownEventListener:
-    ([@mel.as "mousedown"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mousedown"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseDownEventListenerWithOptions:
     (
       [@mel.as "mousedown"] _,
@@ -649,25 +752,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseDownEventListenerUseCapture:
     (
       [@mel.as "mousedown"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseEnterEventListener:
-    ([@mel.as "mouseenter"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseenter"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseEnterEventListenerWithOptions:
     (
       [@mel.as "mouseenter"] _,
@@ -677,24 +782,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseEnterEventListenerUseCapture:
     (
       [@mel.as "mouseenter"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseEnterEventListener:
-    ([@mel.as "mouseenter"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseenter"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseEnterEventListenerWithOptions:
     (
       [@mel.as "mouseenter"] _,
@@ -703,25 +810,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseEnterEventListenerUseCapture:
     (
       [@mel.as "mouseenter"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseMoveEventListener:
-    ([@mel.as "mousemove"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mousemove"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseMoveEventListenerWithOptions:
     (
       [@mel.as "mousemove"] _,
@@ -731,24 +840,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseMoveEventListenerUseCapture:
     (
       [@mel.as "mousemove"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseMoveEventListener:
-    ([@mel.as "mousemove"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mousemove"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseMoveEventListenerWithOptions:
     (
       [@mel.as "mousemove"] _,
@@ -757,25 +868,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseMoveEventListenerUseCapture:
     (
       [@mel.as "mousemove"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseOutEventListener:
-    ([@mel.as "mouseout"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseout"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseOutEventListenerWithOptions:
     (
       [@mel.as "mouseout"] _,
@@ -785,24 +898,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseOutEventListenerUseCapture:
     (
       [@mel.as "mouseout"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseOutEventListener:
-    ([@mel.as "mouseout"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseout"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseOutEventListenerWithOptions:
     (
       [@mel.as "mouseout"] _,
@@ -811,25 +926,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseOutEventListenerUseCapture:
     (
       [@mel.as "mouseout"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseOverEventListener:
-    ([@mel.as "mouseover"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseover"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseOverEventListenerWithOptions:
     (
       [@mel.as "mouseover"] _,
@@ -839,24 +956,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseOverEventListenerUseCapture:
     (
       [@mel.as "mouseover"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseOverEventListener:
-    ([@mel.as "mouseover"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseover"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseOverEventListenerWithOptions:
     (
       [@mel.as "mouseover"] _,
@@ -865,25 +984,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseOverEventListenerUseCapture:
     (
       [@mel.as "mouseover"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseUpEventListener:
-    ([@mel.as "mouseup"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseup"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseUpEventListenerWithOptions:
     (
       [@mel.as "mouseup"] _,
@@ -893,24 +1014,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addMouseUpEventListenerUseCapture:
     (
       [@mel.as "mouseup"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseUpEventListener:
-    ([@mel.as "mouseup"] _, Dom.mouseEvent => unit) => unit =
+    ([@mel.as "mouseup"] _, Dom.mouseEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseUpEventListenerWithOptions:
     (
       [@mel.as "mouseup"] _,
@@ -919,27 +1042,29 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeMouseUpEventListenerUseCapture:
     (
       [@mel.as "mouseup"] _,
       Dom.mouseEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Wheel */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addWheelEventListener:
-    ([@mel.as "wheel"] _, Dom.wheelEvent => unit) => unit =
+    ([@mel.as "wheel"] _, Dom.wheelEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addWheelEventListenerWithOptions:
     (
       [@mel.as "wheel"] _,
@@ -949,24 +1074,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addWheelEventListenerUseCapture:
     (
       [@mel.as "wheel"] _,
       Dom.wheelEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeWheelEventListener:
-    ([@mel.as "wheel"] _, Dom.wheelEvent => unit) => unit =
+    ([@mel.as "wheel"] _, Dom.wheelEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeWheelEventListenerWithOptions:
     (
       [@mel.as "wheel"] _,
@@ -975,27 +1102,30 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeWheelEventListenerUseCapture:
     (
       [@mel.as "wheel"] _,
       Dom.wheelEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Input */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addBeforeInputEventListener:
-    ([@mel.as "beforeinput"] _, Dom.inputEvent => unit) => unit =
+    ([@mel.as "beforeinput"] _, Dom.inputEvent => unit, [@mel.this] T.t) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addBeforeInputEventListenerWithOptions:
     (
       [@mel.as "beforeinput"] _,
@@ -1005,24 +1135,27 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addBeforeInputEventListenerUseCapture:
     (
       [@mel.as "beforeinput"] _,
       Dom.inputEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeBeforeInputEventListener:
-    ([@mel.as "beforeinput"] _, Dom.inputEvent => unit) => unit =
+    ([@mel.as "beforeinput"] _, Dom.inputEvent => unit, [@mel.this] T.t) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeBeforeInputEventListenerWithOptions:
     (
       [@mel.as "beforeinput"] _,
@@ -1031,25 +1164,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeBeforeInputEventListenerUseCapture:
     (
       [@mel.as "beforeinput"] _,
       Dom.inputEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addInputEventListener:
-    ([@mel.as "input"] _, Dom.inputEvent => unit) => unit =
+    ([@mel.as "input"] _, Dom.inputEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addInputEventListenerWithOptions:
     (
       [@mel.as "input"] _,
@@ -1059,24 +1194,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addInputEventListenerUseCapture:
     (
       [@mel.as "input"] _,
       Dom.inputEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeInputEventListener:
-    ([@mel.as "input"] _, Dom.inputEvent => unit) => unit =
+    ([@mel.as "input"] _, Dom.inputEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeInputEventListenerWithOptions:
     (
       [@mel.as "input"] _,
@@ -1085,27 +1222,29 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeInputEventListenerUseCapture:
     (
       [@mel.as "input"] _,
       Dom.inputEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Keyboard */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyDownEventListener:
-    ([@mel.as "keydown"] _, Dom.keyboardEvent => unit) => unit =
+    ([@mel.as "keydown"] _, Dom.keyboardEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyDownEventListenerWithOptions:
     (
       [@mel.as "keydown"] _,
@@ -1115,24 +1254,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyDownEventListenerUseCapture:
     (
       [@mel.as "keydown"] _,
       Dom.keyboardEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyDownEventListener:
-    ([@mel.as "keydown"] _, Dom.keyboardEvent => unit) => unit =
+    ([@mel.as "keydown"] _, Dom.keyboardEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyDownEventListenerWithOptions:
     (
       [@mel.as "keydown"] _,
@@ -1141,25 +1282,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyDownEventListenerUseCapture:
     (
       [@mel.as "keydown"] _,
       Dom.keyboardEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyUpEventListener:
-    ([@mel.as "keyup"] _, Dom.keyboardEvent => unit) => unit =
+    ([@mel.as "keyup"] _, Dom.keyboardEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyUpEventListenerWithOptions:
     (
       [@mel.as "keyup"] _,
@@ -1169,24 +1312,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyUpEventListenerUseCapture:
     (
       [@mel.as "keyup"] _,
       Dom.keyboardEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyUpEventListener:
-    ([@mel.as "keyup"] _, Dom.keyboardEvent => unit) => unit =
+    ([@mel.as "keyup"] _, Dom.keyboardEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyUpEventListenerWithOptions:
     (
       [@mel.as "keyup"] _,
@@ -1195,25 +1340,28 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyUpEventListenerUseCapture:
     (
       [@mel.as "keyup"] _,
       Dom.keyboardEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyPressEventListener:
-    ([@mel.as "keypress"] _, Dom.keyboardEvent => unit) => unit =
+    ([@mel.as "keypress"] _, Dom.keyboardEvent => unit, [@mel.this] T.t) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyPressEventListenerWithOptions:
     (
       [@mel.as "keypress"] _,
@@ -1223,24 +1371,27 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addKeyPressEventListenerUseCapture:
     (
       [@mel.as "keypress"] _,
       Dom.keyboardEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyPressEventListener:
-    ([@mel.as "keypress"] _, Dom.keyboardEvent => unit) => unit =
+    ([@mel.as "keypress"] _, Dom.keyboardEvent => unit, [@mel.this] T.t) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyPressEventListenerWithOptions:
     (
       [@mel.as "keypress"] _,
@@ -1249,27 +1400,34 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeKeyPressEventListenerUseCapture:
     (
       [@mel.as "keypress"] _,
       Dom.keyboardEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Composition */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionStartEventListener:
-    ([@mel.as "compositionstart"] _, Dom.compositionEvent => unit) => unit =
+    (
+      [@mel.as "compositionstart"] _,
+      Dom.compositionEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionStartEventListenerWithOptions:
     (
       [@mel.as "compositionstart"] _,
@@ -1279,24 +1437,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionStartEventListenerUseCapture:
     (
       [@mel.as "compositionstart"] _,
       Dom.compositionEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionStartEventListener:
-    ([@mel.as "compositionstart"] _, Dom.compositionEvent => unit) => unit =
+    (
+      [@mel.as "compositionstart"] _,
+      Dom.compositionEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionStartEventListenerWithOptions:
     (
       [@mel.as "compositionstart"] _,
@@ -1305,25 +1470,32 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionStartEventListenerUseCapture:
     (
       [@mel.as "compositionstart"] _,
       Dom.compositionEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionUpdateEventListener:
-    ([@mel.as "compositionupdate"] _, Dom.compositionEvent => unit) => unit =
+    (
+      [@mel.as "compositionupdate"] _,
+      Dom.compositionEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionUpdateEventListenerWithOptions:
     (
       [@mel.as "compositionupdate"] _,
@@ -1333,24 +1505,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionUpdateEventListenerUseCapture:
     (
       [@mel.as "compositionupdate"] _,
       Dom.compositionEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionUpdateEventListener:
-    ([@mel.as "compositionupdate"] _, Dom.compositionEvent => unit) => unit =
+    (
+      [@mel.as "compositionupdate"] _,
+      Dom.compositionEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionUpdateEventListenerWithOptions:
     (
       [@mel.as "compositionupdate"] _,
@@ -1359,25 +1538,32 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionUpdateEventListenerUseCapture:
     (
       [@mel.as "compositionupdate"] _,
       Dom.compositionEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionEndEventListener:
-    ([@mel.as "compositionend"] _, Dom.compositionEvent => unit) => unit =
+    (
+      [@mel.as "compositionend"] _,
+      Dom.compositionEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionEndEventListenerWithOptions:
     (
       [@mel.as "compositionend"] _,
@@ -1387,24 +1573,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addCompositionEndEventListenerUseCapture:
     (
       [@mel.as "compositionend"] _,
       Dom.compositionEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionEndEventListener:
-    ([@mel.as "compositionend"] _, Dom.compositionEvent => unit) => unit =
+    (
+      [@mel.as "compositionend"] _,
+      Dom.compositionEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionEndEventListenerWithOptions:
     (
       [@mel.as "compositionend"] _,
@@ -1413,27 +1606,29 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeCompositionEndEventListenerUseCapture:
     (
       [@mel.as "compositionend"] _,
       Dom.compositionEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Drag */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEventListener:
-    ([@mel.as "drag"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "drag"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEventListenerWithOptions:
     (
       [@mel.as "drag"] _,
@@ -1443,24 +1638,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEventListenerUseCapture:
     (
       [@mel.as "drag"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEventListener:
-    ([@mel.as "drag"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "drag"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEventListenerWithOptions:
     (
       [@mel.as "drag"] _,
@@ -1469,25 +1666,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEventListenerUseCapture:
     (
       [@mel.as "drag"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEndEventListener:
-    ([@mel.as "dragend"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragend"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEndEventListenerWithOptions:
     (
       [@mel.as "dragend"] _,
@@ -1497,24 +1696,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEndEventListenerUseCapture:
     (
       [@mel.as "dragend"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEndEventListener:
-    ([@mel.as "dragend"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragend"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEndEventListenerWithOptions:
     (
       [@mel.as "dragend"] _,
@@ -1523,25 +1724,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEndEventListenerUseCapture:
     (
       [@mel.as "dragend"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEnterEventListener:
-    ([@mel.as "dragenter"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragenter"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEnterEventListenerWithOptions:
     (
       [@mel.as "dragenter"] _,
@@ -1551,24 +1754,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragEnterEventListenerUseCapture:
     (
       [@mel.as "dragenter"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEnterEventListener:
-    ([@mel.as "dragenter"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragenter"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEnterEventListenerWithOptions:
     (
       [@mel.as "dragenter"] _,
@@ -1577,25 +1782,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragEnterEventListenerUseCapture:
     (
       [@mel.as "dragenter"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragExitEventListener:
-    ([@mel.as "dragexit"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragexit"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragExitEventListenerWithOptions:
     (
       [@mel.as "dragexit"] _,
@@ -1605,24 +1812,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragExitEventListenerUseCapture:
     (
       [@mel.as "dragexit"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragExitEventListener:
-    ([@mel.as "dragexit"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragexit"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragExitEventListenerWithOptions:
     (
       [@mel.as "dragexit"] _,
@@ -1631,25 +1840,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragExitEventListenerUseCapture:
     (
       [@mel.as "dragexit"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragLeaveEventListener:
-    ([@mel.as "dragleave"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragleave"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragLeaveEventListenerWithOptions:
     (
       [@mel.as "dragleave"] _,
@@ -1659,24 +1870,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragLeaveEventListenerUseCapture:
     (
       [@mel.as "dragleave"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragLeaveEventListener:
-    ([@mel.as "dragleave"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragleave"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragLeaveEventListenerWithOptions:
     (
       [@mel.as "dragleave"] _,
@@ -1685,25 +1898,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragLeaveEventListenerUseCapture:
     (
       [@mel.as "dragleave"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragOverEventListener:
-    ([@mel.as "dragover"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragover"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragOverEventListenerWithOptions:
     (
       [@mel.as "dragover"] _,
@@ -1713,24 +1928,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragOverEventListenerUseCapture:
     (
       [@mel.as "dragover"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragOverEventListener:
-    ([@mel.as "dragover"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragover"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragOverEventListenerWithOptions:
     (
       [@mel.as "dragover"] _,
@@ -1739,25 +1956,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragOverEventListenerUseCapture:
     (
       [@mel.as "dragover"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragStartEventListener:
-    ([@mel.as "dragstart"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragstart"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragStartEventListenerWithOptions:
     (
       [@mel.as "dragstart"] _,
@@ -1767,24 +1986,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDragStartEventListenerUseCapture:
     (
       [@mel.as "dragstart"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragStartEventListener:
-    ([@mel.as "dragstart"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "dragstart"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragStartEventListenerWithOptions:
     (
       [@mel.as "dragstart"] _,
@@ -1793,25 +2014,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDragStartEventListenerUseCapture:
     (
       [@mel.as "dragstart"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDropEventListener:
-    ([@mel.as "drop"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "drop"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDropEventListenerWithOptions:
     (
       [@mel.as "drop"] _,
@@ -1821,24 +2044,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addDropEventListenerUseCapture:
     (
       [@mel.as "drop"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDropEventListener:
-    ([@mel.as "drop"] _, Dom.dragEvent => unit) => unit =
+    ([@mel.as "drop"] _, Dom.dragEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDropEventListenerWithOptions:
     (
       [@mel.as "drop"] _,
@@ -1847,27 +2072,30 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeDropEventListenerUseCapture:
     (
       [@mel.as "drop"] _,
       Dom.dragEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Touch */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchCancelEventListener:
-    ([@mel.as "touchcancel"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchcancel"] _, Dom.touchEvent => unit, [@mel.this] T.t) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchCancelEventListenerWithOptions:
     (
       [@mel.as "touchcancel"] _,
@@ -1877,24 +2105,27 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchCancelEventListenerUseCapture:
     (
       [@mel.as "touchcancel"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchCancelEventListener:
-    ([@mel.as "touchcancel"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchcancel"] _, Dom.touchEvent => unit, [@mel.this] T.t) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchCancelEventListenerWithOptions:
     (
       [@mel.as "touchcancel"] _,
@@ -1903,25 +2134,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchCancelEventListenerUseCapture:
     (
       [@mel.as "touchcancel"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchEndEventListener:
-    ([@mel.as "touchend"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchend"] _, Dom.touchEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchEndEventListenerWithOptions:
     (
       [@mel.as "touchend"] _,
@@ -1931,24 +2164,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchEndEventListenerUseCapture:
     (
       [@mel.as "touchend"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchEndEventListener:
-    ([@mel.as "touchend"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchend"] _, Dom.touchEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchEndEventListenerWithOptions:
     (
       [@mel.as "touchend"] _,
@@ -1957,25 +2192,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchEndEventListenerUseCapture:
     (
       [@mel.as "touchend"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchMoveEventListener:
-    ([@mel.as "touchmove"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchmove"] _, Dom.touchEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchMoveEventListenerWithOptions:
     (
       [@mel.as "touchmove"] _,
@@ -1985,24 +2222,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchMoveEventListenerUseCapture:
     (
       [@mel.as "touchmove"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchMoveEventListener:
-    ([@mel.as "touchmove"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchmove"] _, Dom.touchEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchMoveEventListenerWithOptions:
     (
       [@mel.as "touchmove"] _,
@@ -2011,25 +2250,27 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchMoveEventListenerUseCapture:
     (
       [@mel.as "touchmove"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchStartEventListener:
-    ([@mel.as "touchstart"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchstart"] _, Dom.touchEvent => unit, [@mel.this] T.t) => unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchStartEventListenerWithOptions:
     (
       [@mel.as "touchstart"] _,
@@ -2039,24 +2280,26 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addTouchStartEventListenerUseCapture:
     (
       [@mel.as "touchstart"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchStartEventListener:
-    ([@mel.as "touchstart"] _, Dom.touchEvent => unit) => unit =
+    ([@mel.as "touchstart"] _, Dom.touchEvent => unit, [@mel.this] T.t) => unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchStartEventListenerWithOptions:
     (
       [@mel.as "touchstart"] _,
@@ -2065,27 +2308,34 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeTouchStartEventListenerUseCapture:
     (
       [@mel.as "touchstart"] _,
       Dom.touchEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
   /* Animation */
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationCancelEventListener:
-    ([@mel.as "animationcancel"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationcancel"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationCancelEventListenerWithOptions:
     (
       [@mel.as "animationcancel"] _,
@@ -2095,24 +2345,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationCancelEventListenerUseCapture:
     (
       [@mel.as "animationcancel"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationCancelEventListener:
-    ([@mel.as "animationcancel"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationcancel"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationCancelEventListenerWithOptions:
     (
       [@mel.as "animationcancel"] _,
@@ -2121,25 +2378,32 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationCancelEventListenerUseCapture:
     (
       [@mel.as "animationcancel"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationEndEventListener:
-    ([@mel.as "animationend"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationend"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationEndEventListenerWithOptions:
     (
       [@mel.as "animationend"] _,
@@ -2149,24 +2413,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationEndEventListenerUseCapture:
     (
       [@mel.as "animationend"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationEndEventListener:
-    ([@mel.as "animationend"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationend"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationEndEventListenerWithOptions:
     (
       [@mel.as "animationend"] _,
@@ -2175,25 +2446,32 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationEndEventListenerUseCapture:
     (
       [@mel.as "animationend"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationIterationEventListener:
-    ([@mel.as "animationiteration"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationiteration"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationIterationEventListenerWithOptions:
     (
       [@mel.as "animationiteration"] _,
@@ -2203,24 +2481,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationIterationEventListenerUseCapture:
     (
       [@mel.as "animationiteration"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationIterationEventListener:
-    ([@mel.as "animationiteration"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationiteration"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationIterationEventListenerWithOptions:
     (
       [@mel.as "animationiteration"] _,
@@ -2229,25 +2514,32 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationIterationEventListenerUseCapture:
     (
       [@mel.as "animationiteration"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";
 
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationStartEventListener:
-    ([@mel.as "animationstart"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationstart"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationStartEventListenerWithOptions:
     (
       [@mel.as "animationstart"] _,
@@ -2257,24 +2549,31 @@ module Impl = (T: {
         "capture": bool,
         "once": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external addAnimationStartEventListenerUseCapture:
     (
       [@mel.as "animationstart"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "addEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationStartEventListener:
-    ([@mel.as "animationstart"] _, Dom.animationEvent => unit) => unit =
+    (
+      [@mel.as "animationstart"] _,
+      Dom.animationEvent => unit,
+      [@mel.this] T.t
+    ) =>
+    unit =
     "removeEventListener";
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationStartEventListenerWithOptions:
     (
       [@mel.as "animationstart"] _,
@@ -2283,16 +2582,18 @@ module Impl = (T: {
         .
         "capture": bool,
         "passive": bool,
-      }
+      },
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener"; /* not widely supported */
-  [@mel.send.pipe: T.t]
+  [@mel.send]
   external removeAnimationStartEventListenerUseCapture:
     (
       [@mel.as "animationstart"] _,
       Dom.animationEvent => unit,
-      [@mel.as {json|true|json}] _
+      [@mel.as {json|true|json}] _,
+      [@mel.this] T.t
     ) =>
     unit =
     "removeEventListener";

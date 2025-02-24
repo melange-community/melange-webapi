@@ -17,10 +17,13 @@ module Impl = (T: {
   [@mel.get] external type_: T.t => string = "type";
   [@mel.get] external isTrusted: T.t => bool = "isTrusted";
 
-  [@mel.send.pipe: T.t] external preventDefault: unit = "preventDefault";
-  [@mel.send.pipe: T.t]
-  external stopImmediatePropagation: unit = "stopImmediatePropagation";
-  [@mel.send.pipe: T.t] external stopPropagation: unit = "stopPropagation";
+  [@mel.send]
+  external preventDefault: ([@mel.this] T.t) => unit = "preventDefault";
+  [@mel.send]
+  external stopImmediatePropagation: ([@mel.this] T.t) => unit =
+    "stopImmediatePropagation";
+  [@mel.send]
+  external stopPropagation: ([@mel.this] T.t) => unit = "stopPropagation";
 };
 
 type t = Dom.event;

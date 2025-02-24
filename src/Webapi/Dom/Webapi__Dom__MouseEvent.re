@@ -23,8 +23,9 @@ module Impl = (T: {
   [@mel.get] external shiftKey: T.t => bool = "shiftKey";
   [@mel.get] external x: T.t => int = "x"; /* experimental */
   [@mel.get] external y: T.t => int = "y"; /* experimental */
-  [@mel.send.pipe: T.t]
-  external getModifierState: string /* modifierKey enum */ => bool =
+  [@mel.send]
+  external getModifierState:
+    (string /* modifierKey enum */, [@mel.this] T.t) => bool =
     "getModifierState";
   let getModifierState: (Webapi__Dom__Types.modifierKey, T.t) => bool =
     (key, self) =>

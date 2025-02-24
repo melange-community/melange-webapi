@@ -41,12 +41,16 @@ module Impl = (T: {
   [@mel.set]
   external setEncoding: (t_htmlFormElement, string) => unit = "encoding";
 
-  [@mel.send.pipe: t_htmlFormElement] external submit: unit = "submit";
-  [@mel.send.pipe: t_htmlFormElement] external reset: unit = "reset";
-  [@mel.send.pipe: t_htmlFormElement]
-  external checkValidity: bool = "checkValidity";
-  [@mel.send.pipe: t_htmlFormElement]
-  external reportValidity: bool = "reportValidity";
+  [@mel.send]
+  external submit: ([@mel.this] t_htmlFormElement) => unit = "submit";
+  [@mel.send]
+  external reset: ([@mel.this] t_htmlFormElement) => unit = "reset";
+  [@mel.send]
+  external checkValidity: ([@mel.this] t_htmlFormElement) => bool =
+    "checkValidity";
+  [@mel.send]
+  external reportValidity: ([@mel.this] t_htmlFormElement) => bool =
+    "reportValidity";
 
   /** @since 0.18.0 */
   [@mel.new]
