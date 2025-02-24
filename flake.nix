@@ -8,20 +8,7 @@
       forAllSystems = f: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
         let
           pkgs = nixpkgs.legacyPackages.${system}.extend (self: super: {
-            ocamlPackages = super.ocaml-ng.ocamlPackages_5_3.overrideScope (oself: osuper: {
-              ppxlib = osuper.ppxlib.overrideAttrs (o: {
-                propagatedBuildInputs = o.propagatedBuildInputs ++ [ osuper.stdio ];
-              });
-              melange = osuper.melange.overrideAttrs (_: {
-                src = super.fetchFromGitHub {
-                  owner = "melange-re";
-                  repo = "melange";
-                  rev = "a6f10f5995161caf3d6dd7eb96c038265a2df194";
-                  hash = "sha256-5M7k/YYAiZOpc7hdrBpnknxlBKjEePXU87lWJwAo6CU=";
-                  fetchSubmodules = true;
-                };
-              });
-            });
+            ocamlPackages = super.ocaml-ng.ocamlPackages_5_3;
           });
         in
         f pkgs);

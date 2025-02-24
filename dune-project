@@ -28,7 +28,7 @@
  (depends
   ocaml
   (melange
-   (>= "5.0.0"))
+   (>= "5.0.1"))
   melange-fetch
   (reason
    (>= "3.10"))
