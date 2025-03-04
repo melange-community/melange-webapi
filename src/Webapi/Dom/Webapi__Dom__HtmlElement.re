@@ -113,6 +113,7 @@ module Impl = (T: {
   /* TODO: element-spcific, should be pulled out */
   [@mel.get] external value: t_htmlElement => string = "value"; /* HTMLInputElement */
   [@mel.get] external checked: t_htmlElement => bool = "checked"; /* HTMLInputElement */
+  [@mel.send] external select: ([@mel.this] t_htmlElement) => unit = "select"; /* HTMLInputElement */
   [@mel.get] external type_: t_htmlElement => string = "type"; /* HTMLStyleElement */
   [@mel.set] external setType: (t_htmlElement, string) => unit = "type"; /* HTMLStyleElement */
   [@mel.get] external rel: t_htmlElement => string = "rel"; /* HTMLLinkElement */
