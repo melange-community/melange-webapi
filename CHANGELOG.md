@@ -1,5 +1,6 @@
 ### Unreleased
 
+* change `Webapi.Dom.EventPhase.None` variant to `None'` to avoid conflict with option
 * feat: bind to new FormData(HtmlFormElement) by @andreypopp  (#13)
 
 ### 0.20.0
