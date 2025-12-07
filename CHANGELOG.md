@@ -1,4 +1,11 @@
-### Unreleased
+### 0.22.0
+
+* `(re_export melange.dom)` by @swrup (#17)
+* fix: `Webapi__Dom__Document.asHtmlDocument` by @davesnx (#20)
+* port `@mel.send.pipe` to `@mel.send` + `@mel.this` by @anmonteiro (#23)
+* build on Melange 6 / OCaml 5.4 by @anmonteiro (#27)
+
+### 0.21.0
 
 * feat: bind to new FormData(HtmlFormElement) by @andreypopp  (#13)
 
