@@ -47,7 +47,7 @@
       devShells = forAllSystems (pkgs:
         let
           mkShell = { buildInputs ? [ ] }: pkgs.mkShell {
-            inputsFrom = [ self.packages.${pkgs.system}.melange-webapi ];
+            inputsFrom = [ self.packages.${pkgs.stdenv.hostPlatform.system}.melange-webapi ];
             nativeBuildInputs = with pkgs; [
               yarn
               nodejs_latest
