@@ -105,7 +105,7 @@ let decodeDir =
 /** @since 0.17.1 */
 module EventPhase = {
   type t =
-    | None
+    | None'
     | CapturingPhase
     | AtTarget
     | BubblingPhase
@@ -116,13 +116,13 @@ module EventPhase = {
     | 1 => CapturingPhase
     | 2 => AtTarget
     | 3 => BubblingPhase
-    | 0 => None
+    | 0 => None'
     | _ => Unknown;
 };
 
 [@deprecated "Use EventPhase.t"]
 type eventPhase = EventPhase.t =
-  | None
+  | None'
   | CapturingPhase
   | AtTarget
   | BubblingPhase
